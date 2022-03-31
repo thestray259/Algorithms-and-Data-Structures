@@ -6,7 +6,7 @@ namespace Labs
     {
         static void Main(string[] args)
         {
-            Isomorphics.Go(); 
+            Helpers.Go(); 
         }
     }
 }
