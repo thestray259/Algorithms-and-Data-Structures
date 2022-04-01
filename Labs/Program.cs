@@ -6,7 +6,8 @@ namespace Labs
     {
         static void Main(string[] args)
         {
-            Helpers.Go(); 
+            Isomorphics.CreateIsomorphs(); 
+            //Console.WriteLine();
         }
     }
 }

@@ -20,19 +20,125 @@ namespace Labs
             }
         }
 
-        public static void CreateIsomorphs(string[] lines)
+        public static void CreateIsomorphs()
         {
-            // code here 
+            //Go();
+            string[] fileLines; 
+
+            Console.WriteLine("Please provide a path to the file: ");
+            string path = Console.ReadLine();
+
+            if (!string.IsNullOrWhiteSpace(path))
+            {
+                fileLines = File.ReadAllLines(path);
+                Console.WriteLine("Exact Isomorphs: "); 
+                foreach (var value in ExactIsomorphs(fileLines))
+                {
+                    Console.WriteLine(value.Key + " -> " + value.Value.ToString()); 
+                }
+            }
+
+            //LooseIsomorphs(lines); 
+
+            // if word is not exact or loose, list as neither
         }
 
-        public static void ExactIsomorphs(string[] lines)
+        public static Dictionary<string, List<string>> ExactIsomorphs(string[] lines) // code to get just the exact isomorphs 
         {
-            // code to get just the exact isomorphs 
+            //string output = ""; 
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+            List<string> codes = new List<string>();
+            List<string> exactIsos = new List<string>(); 
+
+            foreach (var word in lines)
+            {
+                string code = ExactIsoID(word);
+                dict.Add(word, code);
+                codes.Add(code); 
+            }
+
+            List<string> distinctCodes = codes.Distinct<string>().ToList(); 
+
+            foreach (var word in lines)
+            {
+                string code = ExactIsoID(word);
+
+                if (distinctCodes.Contains(code))
+                {
+                    exactIsos.Add(word); 
+                }
+            }
+
+            Dictionary<string, List<string>> masterDict = new Dictionary<string, List<string>>(); 
+
+            foreach (var isoCode in distinctCodes)
+            {
+                List<string> tempWords = new List<string>(); 
+
+                foreach (KeyValuePair<string, string> entry in dict)
+                {
+                    if (entry.Value == isoCode)
+                    {
+                        tempWords.Add(entry.Key);
+                    }
+                }
+
+                masterDict.Add(isoCode, tempWords); 
+                //output += isoCode + " "; 
+            }
+
+            return masterDict; 
         }
 
-        public static void LooseIsomorphs(string[] lines)
+        public static string LooseIsomorphs(string[] lines) // code to get just the loose isomorphs 
         {
-            // code to get just the loose isomorphs 
+
+
+            return ""; 
+        }
+
+        public static string ExactIsoID(string word)
+        {
+            char[] wordChars = word.ToCharArray();
+            List<char> charList = new List<char>();
+            string isoCode = ""; 
+
+            foreach (char letter in wordChars)
+            {
+                if (!charList.Contains(letter))
+                {
+                    charList.Add(letter); 
+                }
+                isoCode += charList.IndexOf(letter) + " "; 
+            }
+
+            return isoCode.Trim(); 
+        }
+
+        public static string LooseIsoID(string word)
+        {
+            char[] wordChars = word.ToCharArray();
+            Dictionary<char, int> dict = new Dictionary<char, int>();
+            string isoCode = "";
+
+            foreach (char letter in wordChars)
+            {
+                if (dict.ContainsKey(letter))
+                {
+                    dict[letter] += 1; 
+                }
+                else
+                {
+                    dict.Add(letter, 1); 
+                }
+            }
+
+            foreach (var item in dict.Values)
+            {
+                isoCode += item + " "; 
+            }
+
+            return isoCode.Trim(); 
         }
 
         public static string GetName(string line)
