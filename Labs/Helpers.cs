@@ -65,7 +65,36 @@ namespace Labs
             List<string> allLetters = myLetters.Select(m => m.Letter).ToList(); 
             List<string> allWords = myLetters.SelectMany(m => m.Words).ToList();
 
-            Console.WriteLine(d.LetterWordToString()); 
+            Console.WriteLine(d.LetterWordToString());
+
+            // dictionary stuff 
+            Dictionary<int, string> myPeopleDict = new Dictionary<int, string>();
+
+            myPeopleDict.Add(1, "Ted"); // sets new entry in dictionary 
+            myPeopleDict[1] = "Paul"; // changes value that is assigned to a key 
+
+            if (myPeopleDict.ContainsKey(1))
+            {
+                myPeopleDict[1] = myPeopleDict[1] + " is not here. "; 
+            }
+
+            foreach (KeyValuePair<int, string> kvp in myPeopleDict)
+            {
+                //kvp.Key 
+                //kvp.Value
+            }
+
+            //LINQ Dictionary 
+            Dictionary<int, string> fNameResults = // sets the below lines to be in dictionary 
+            myPeopleDict.Where(p => p.Value.Contains('F')) // to find all people in dict who's name conatins the letter F
+                .ToDictionary(k => k.Key, v => v.Value);
+
+            var person = myPeopleDict.FirstOrDefault(p => p.Key == 1); 
+
+            for (int i = 0, j = 20; i <= j; i++, j--) // could be helpful for assignment 
+            {
+
+            }
         }
 
         public static void DebugMe()

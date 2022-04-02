@@ -31,10 +31,21 @@ namespace Labs
             if (!string.IsNullOrWhiteSpace(path))
             {
                 fileLines = File.ReadAllLines(path);
+
+/*                var exactIsos = ExactIsomorphs(fileLines);
+                foreach (var key in exactIsos.Keys)
+                {
+                    foreach (var listValue in exactIsos[key])
+                    {
+                        Console.WriteLine(exactIsos.Keys + " -> " + listValue);
+
+                    }
+                }*/
+
                 Console.WriteLine("Exact Isomorphs: "); 
                 foreach (var value in ExactIsomorphs(fileLines))
                 {
-                    Console.WriteLine(value.Key + " -> " + value.Value.ToString()); 
+                    Console.WriteLine(value.Key + " : " + value.Value.ToString()); 
                 }
             }
 
@@ -45,19 +56,18 @@ namespace Labs
 
         public static Dictionary<string, List<string>> ExactIsomorphs(string[] lines) // code to get just the exact isomorphs 
         {
-            //string output = ""; 
             Dictionary<string, string> dict = new Dictionary<string, string>();
             List<string> codes = new List<string>();
-            List<string> exactIsos = new List<string>(); 
+            List<string> exactIsos = new List<string>();
+
+            List<string> distinctCodes = codes.Distinct<string>().ToList();
 
             foreach (var word in lines)
             {
                 string code = ExactIsoID(word);
                 dict.Add(word, code);
                 codes.Add(code); 
-            }
-
-            List<string> distinctCodes = codes.Distinct<string>().ToList(); 
+            }            
 
             foreach (var word in lines)
             {
@@ -69,6 +79,7 @@ namespace Labs
                 }
             }
 
+            // master dictionary to hold codes and words 
             Dictionary<string, List<string>> masterDict = new Dictionary<string, List<string>>(); 
 
             foreach (var isoCode in distinctCodes)
@@ -84,7 +95,6 @@ namespace Labs
                 }
 
                 masterDict.Add(isoCode, tempWords); 
-                //output += isoCode + " "; 
             }
 
             return masterDict; 
@@ -97,7 +107,7 @@ namespace Labs
             return ""; 
         }
 
-        public static string ExactIsoID(string word)
+        public static string ExactIsoID(string word) // code to get just the iso code for exact isos 
         {
             char[] wordChars = word.ToCharArray();
             List<char> charList = new List<char>();
@@ -115,7 +125,7 @@ namespace Labs
             return isoCode.Trim(); 
         }
 
-        public static string LooseIsoID(string word)
+        public static string LooseIsoID(string word) // code to get just the iso code for loose isos 
         {
             char[] wordChars = word.ToCharArray();
             Dictionary<char, int> dict = new Dictionary<char, int>();
