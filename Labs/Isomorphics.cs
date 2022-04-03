@@ -30,18 +30,35 @@ namespace Labs
             if (!string.IsNullOrWhiteSpace(path))
             {
                 fileLines = File.ReadAllLines(path);
+                List<string> notExact = new List<string>(); 
+                List<string> notLoose = new List<string>(); 
+                List<string> neither = new List<string>(); 
 
                 // Exact Isos
                 Console.WriteLine("Exact Isomorphs: ");
                 Dictionary<string, List<string>> isosExact = ExactIsomorphs(fileLines);
                 foreach (var value in isosExact)
-                {
-                    Console.Write(value.Key + " : ");
-                    foreach (var word in value.Value)
+                {                    
+                    // if value.Value only has 1 object in it
+                    //     put in entry into notExact list and don't print 
+
+                    if (value.Value.Count() == 1)
                     {
-                        Console.Write(word + " ");
-                    }
+                        foreach (var word in value.Value)
+                        {
+                            notExact.Add(word); 
+                        }                        
+                    }                    
+                    else if (value.Value.Count() >= 2)
+                    {
+                        Console.Write(value.Key + " : ");
+                        foreach (var word in value.Value)
+                        {
+                            Console.Write(word + " ");
+                        }
                         Console.WriteLine(); 
+                    }
+                    else Console.Write("Exact Isos not working correctly. ");
                 }
                 Console.WriteLine(); 
 
@@ -50,18 +67,49 @@ namespace Labs
                 Dictionary<string, List<string>> isosLoose = LooseIsomorphs(fileLines);
                 foreach (var value in isosLoose)
                 {
-                    Console.Write(value.Key + " : ");
-                    foreach (var word in value.Value)
+                    // if value.Value only has 1 object in it
+                    //     put in entry into notLoose list and don't print 
+                    if (value.Value.Count() == 1)
                     {
-                        Console.Write(word + " ");
+                        foreach (var word in value.Value)
+                        {
+                            notLoose.Add(word);
+                        }
                     }
-                    Console.WriteLine();
+                    else if (value.Value.Count() >= 2)
+                    {
+                        Console.Write(value.Key + " : ");
+                        foreach (var word in value.Value)
+                        {
+                            Console.Write(word + " ");
+                        }
+                        Console.WriteLine();
+                    }
+                    else Console.Write("Loose Isos not working correctly. ");
+                }
+                Console.WriteLine();
+
+                // if word is not exact or loose, list as neither
+                // compare notExact and notLoose and pull any repeating entries into a neither list and print the list contents
+
+                foreach (var exactListItem in notExact)
+                {
+                    foreach (var looseListItem in notLoose)
+                    {
+                        if (looseListItem == exactListItem)
+                        {
+                            neither.Add(looseListItem); 
+                        }
+                    }
+                }
+
+                Console.Write("Neither: ");
+                foreach (var nei in neither)
+                {
+                    Console.Write(nei + " "); 
                 }
                 Console.WriteLine();
             }
-
-            // if word is not exact or loose, list as neither
-            // prolly make another method to find if word is exact or loose, and if not then add to a neither list 
         }
 
         public static Dictionary<string, List<string>> ExactIsomorphs(string[] lines) // code to get just the exact isomorphs 
@@ -110,7 +158,7 @@ namespace Labs
             return masterDict; 
         }
 
-        public static Dictionary<string, List<string>> LooseIsomorphs(string[] lines) // code to get just the loose isomorphs 
+        public static Dictionary<string, List<string>> LooseIsomorphs(string[] lines) // code to get just the loose isomorphs // needs to sort numbers in code least to greatest 
         {
             Dictionary<string, string> dict = new Dictionary<string, string>();
             List<string> codes = new List<string>();
