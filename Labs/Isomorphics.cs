@@ -22,7 +22,6 @@ namespace Labs
 
         public static void CreateIsomorphs()
         {
-            //Go();
             string[] fileLines; 
 
             Console.WriteLine("Please provide a path to the file: ");
@@ -32,26 +31,37 @@ namespace Labs
             {
                 fileLines = File.ReadAllLines(path);
 
-/*                var exactIsos = ExactIsomorphs(fileLines);
-                foreach (var key in exactIsos.Keys)
+                // Exact Isos
+                Console.WriteLine("Exact Isomorphs: ");
+                Dictionary<string, List<string>> isosExact = ExactIsomorphs(fileLines);
+                foreach (var value in isosExact)
                 {
-                    foreach (var listValue in exactIsos[key])
+                    Console.Write(value.Key + " : ");
+                    foreach (var word in value.Value)
                     {
-                        Console.WriteLine(exactIsos.Keys + " -> " + listValue);
-
+                        Console.Write(word + " ");
                     }
-                }*/
-
-                Console.WriteLine("Exact Isomorphs: "); 
-                foreach (var value in ExactIsomorphs(fileLines))
-                {
-                    Console.WriteLine(value.Key + " : " + value.Value.ToString()); 
+                        Console.WriteLine(); 
                 }
+                Console.WriteLine(); 
+
+                // Loose Isos
+                Console.WriteLine("Loose Isomorphs: ");
+                Dictionary<string, List<string>> isosLoose = LooseIsomorphs(fileLines);
+                foreach (var value in isosLoose)
+                {
+                    Console.Write(value.Key + " : ");
+                    foreach (var word in value.Value)
+                    {
+                        Console.Write(word + " ");
+                    }
+                    Console.WriteLine();
+                }
+                Console.WriteLine();
             }
 
-            //LooseIsomorphs(lines); 
-
             // if word is not exact or loose, list as neither
+            // prolly make another method to find if word is exact or loose, and if not then add to a neither list 
         }
 
         public static Dictionary<string, List<string>> ExactIsomorphs(string[] lines) // code to get just the exact isomorphs 
@@ -60,16 +70,16 @@ namespace Labs
             List<string> codes = new List<string>();
             List<string> exactIsos = new List<string>();
 
-            List<string> distinctCodes = codes.Distinct<string>().ToList();
-
-            foreach (var word in lines)
+            foreach (var word in lines) // gets the code of every word and inserts it into codes list  
             {
                 string code = ExactIsoID(word);
                 dict.Add(word, code);
                 codes.Add(code); 
-            }            
+            }
 
-            foreach (var word in lines)
+            List<string> distinctCodes = codes.Distinct<string>().ToList();
+
+            foreach (var word in lines) // gets the code of every word and checks it against the distinct codes list to get every exact iso code 
             {
                 string code = ExactIsoID(word);
 
@@ -100,11 +110,50 @@ namespace Labs
             return masterDict; 
         }
 
-        public static string LooseIsomorphs(string[] lines) // code to get just the loose isomorphs 
+        public static Dictionary<string, List<string>> LooseIsomorphs(string[] lines) // code to get just the loose isomorphs 
         {
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+            List<string> codes = new List<string>();
+            List<string> exactIsos = new List<string>();
 
+            foreach (var word in lines) // gets the code of every word and inserts it into codes list  
+            {
+                string code = LooseIsoID(word);
+                dict.Add(word, code);
+                codes.Add(code);
+            }
 
-            return ""; 
+            List<string> distinctCodes = codes.Distinct<string>().ToList();
+
+            foreach (var word in lines) // gets the code of every word and checks it against the distinct codes list to get every loose iso code 
+            {
+                string code = LooseIsoID(word);
+
+                if (distinctCodes.Contains(code))
+                {
+                    exactIsos.Add(word);
+                }
+            }
+
+            // master dictionary to hold codes and words 
+            Dictionary<string, List<string>> masterDict = new Dictionary<string, List<string>>();
+
+            foreach (var isoCode in distinctCodes)
+            {
+                List<string> tempWords = new List<string>();
+
+                foreach (KeyValuePair<string, string> entry in dict)
+                {
+                    if (entry.Value == isoCode)
+                    {
+                        tempWords.Add(entry.Key);
+                    }
+                }
+
+                masterDict.Add(isoCode, tempWords);
+            }
+
+            return masterDict;
         }
 
         public static string ExactIsoID(string word) // code to get just the iso code for exact isos 
