@@ -13,8 +13,6 @@ namespace Tests
         [Test]
         public void GetNameTest()
         {
-            string name = Isomorphics.GetName("oajeoifjaod <John Doe> aopjefpadijfadijf");
-            Assert.AreEqual("John Doe", name); 
         }
     }
 }
