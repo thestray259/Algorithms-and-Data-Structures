@@ -9,17 +9,6 @@ namespace Labs
 {
     public static class Isomorphics
     {
-        public static void Go()
-        {
-            Console.WriteLine("Please provide a path to the file: ");
-            string path = Console.ReadLine(); 
-
-            if (!string.IsNullOrWhiteSpace(path))
-            {
-                string[] lines = File.ReadAllLines(path); 
-            }
-        }
-
         public static void CreateIsomorphs()
         {
             string[] fileLines;
@@ -270,13 +259,6 @@ namespace Labs
             }
 
             return isoCode.Trim(); 
-        }
-
-        public static string GetName(string line)
-        {
-            //code here
-
-            return ""; 
         }
     }
 }
