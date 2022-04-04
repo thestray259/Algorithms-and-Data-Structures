@@ -22,7 +22,8 @@ namespace Labs
 
         public static void CreateIsomorphs()
         {
-            string[] fileLines; 
+            string[] fileLines;
+            string outputText = "";
 
             Console.WriteLine("Please provide a path to the file: ");
             string path = Console.ReadLine();
@@ -36,6 +37,7 @@ namespace Labs
 
                 // Exact Isos
                 Console.WriteLine("Exact Isomorphs: ");
+                outputText += "Exact Isomorphs: \n"; 
                 Dictionary<string, List<string>> isosExact = ExactIsomorphs(fileLines);
                 foreach (var value in isosExact)
                 {                    
@@ -52,11 +54,14 @@ namespace Labs
                     else if (value.Value.Count() >= 2)
                     {
                         Console.Write(value.Key + " : ");
+                        outputText += value.Key + " : "; 
                         foreach (var word in value.Value)
                         {
                             Console.Write(word + " ");
+                            outputText += word + " "; 
                         }
-                        Console.WriteLine(); 
+                        Console.WriteLine();
+                        outputText += "\n"; 
                     }
                     else Console.Write("Exact Isos not working correctly. ");
                 }
@@ -64,6 +69,7 @@ namespace Labs
 
                 // Loose Isos
                 Console.WriteLine("Loose Isomorphs: ");
+                outputText += "Loose Isomorphs: \n";
                 Dictionary<string, List<string>> isosLoose = LooseIsomorphs(fileLines);
                 foreach (var value in isosLoose)
                 {
@@ -79,11 +85,14 @@ namespace Labs
                     else if (value.Value.Count() >= 2)
                     {
                         Console.Write(value.Key + " : ");
+                        outputText += value.Key + " : ";
                         foreach (var word in value.Value)
                         {
                             Console.Write(word + " ");
+                            outputText += word + " ";
                         }
                         Console.WriteLine();
+                        outputText += "\n"; 
                     }
                     else Console.Write("Loose Isos not working correctly. ");
                 }
@@ -104,12 +113,18 @@ namespace Labs
                 }
 
                 Console.Write("Neither: ");
+                outputText += "Neither: \n"; 
                 foreach (var nei in neither)
                 {
-                    Console.Write(nei + " "); 
+                    Console.Write(nei + " ");
+                    outputText += nei + " "; 
                 }
                 Console.WriteLine();
+                outputText += "\n"; 
             }
+
+            // write to .txt file 
+            File.WriteAllText("Output.txt", outputText); 
         }
 
         public static Dictionary<string, List<string>> ExactIsomorphs(string[] lines) // code to get just the exact isomorphs 
@@ -240,7 +255,16 @@ namespace Labs
                 }
             }
 
-            foreach (var item in dict.Values)
+            List<int> sortedCode = new List<int>(); 
+
+            foreach (var value in dict.Values)
+            {
+                sortedCode.Add(value); 
+            }
+
+            sortedCode.Sort(); 
+
+            foreach (var item in sortedCode)
             {
                 isoCode += item + " "; 
             }
