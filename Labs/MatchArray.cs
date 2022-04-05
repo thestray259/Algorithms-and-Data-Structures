@@ -14,28 +14,49 @@ namespace Labs
         public static int[] MatchingNumbers(int[] array1, int[] array2)
         {
             List<int> outputArray = new List<int>();
+            List<int> a1 = array1.ToList();
+            List<int> a2 = array2.ToList();
 
-            array1.ToList().Sort(); 
-            array2.ToList().Sort(); 
+            a1.Sort();
+            a2.Sort(); 
 
-            foreach (var firstNumber in array1)
+            if (a1.Count >= a2.Count)
             {
-
-                foreach (var secondNumber in array2)
+                foreach (var a in a1)
                 {
-                    if (secondNumber == firstNumber)
+                    if (a2.Contains(a))
                     {
-                        // add secondNumber to output array 
-                        // remove secondNumber from array2 
-                        // remove firstNumber from array1
-
-                        outputArray.Add(secondNumber);
-                        //array1.Remove(firstNumber); //doesn't work???
+                        a2.Remove(a);
+                        outputArray.Add(a);
+                    }
+                }
+            }
+            else
+            {
+                foreach (var a in a2)
+                {
+                    if (a1.Contains(a))
+                    {
+                        a1.Remove(a);
+                        outputArray.Add(a); 
                     }
                 }
             }
 
-            return outputArray.ToArray(); 
+            return outputArray.ToArray();
+        }
+
+        public static int[] RandomArray(int num, int min, int max)
+        {
+            int[] array = new int[num];
+            Random random = new Random();
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = random.Next(min, max); 
+            }
+
+            return array; 
         }
     }
 }
