@@ -27,6 +27,16 @@ namespace SortingLibrary
         public static void InsertionSort(T[] arr)
         {
 
+            for (int i = 0; i < arr.Length; i++)
+            {
+                // need to pull out number that is being compared to others and track it 
+                // if switches, the number it switched with overwrites the original number 
+                // stable swap, means if number is equal to number it's being compared to, don't swap 
+                for (int j = 0; j < arr.Length; j++)
+                {
+
+                }
+            }
         }
 
         public static void SelectionSort(T[] arr)

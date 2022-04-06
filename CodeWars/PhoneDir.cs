@@ -13,6 +13,9 @@ namespace CodeWars
             // your code
             // check for if the number doesn't exist, return "Error => Not found: 5-555-555-5555"
 
+            // Match found = Regex.Match(string, @"\d.......") 
+            // found.Value = ?????????
+
             // get name 
 
             // get phone number 
