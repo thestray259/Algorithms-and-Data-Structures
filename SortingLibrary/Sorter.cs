@@ -8,6 +8,10 @@ namespace SortingLibrary
 {
     public class Sorter<T> where T : IComparable<T>
     {
+        //"A".CompareTo("B")   -1 PROCEEDS 
+        //"B".CompareTo("A")   +1 FOLLOWS 
+        //"B".CompareTo("B")    0 SAME 
+
         public static void BubbleSort(T[] arr)
         {
             T temp; 
@@ -47,9 +51,31 @@ namespace SortingLibrary
             }
         }
 
-        public static void SelectionSort(T[] arr)
+        public static void SelectionSort(T[] arr) // needs work 
         {
+            T temp;
+            T lowestValue = default(T); 
+            for (int i = 0; i < arr.Length; i++)
+            {
+                for (int j = 0; j < arr.Length; j++)
+                {
+                    // loops through and finds the smallest number 
+                    // swaps the smallest number with the number of the index it's on (arr[i]) 
 
+                    lowestValue = arr[j]; 
+                    if (arr[j].CompareTo(arr[j + 1]) > 0)
+                    {
+                        lowestValue = arr[j + 1]; 
+                    }                    
+                }
+
+                if (lowestValue.CompareTo(arr[i]) > 0)
+                {
+                    temp = lowestValue;
+                    lowestValue = arr[i];
+                    arr[i] = temp; 
+                }
+            }
         }
     }
 }
