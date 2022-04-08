@@ -51,28 +51,29 @@ namespace SortingLibrary
             }
         }
 
-        public static void SelectionSort(T[] arr) // needs work 
+        public static void SelectionSort(T[] arr)
         {
-            T temp;
-            T lowestValue = default(T); 
+            T temp;            
             for (int i = 0; i < arr.Length; i++)
             {
-                for (int j = 0; j < arr.Length; j++)
+                T lowestValue = arr[i];
+                int minLocation = i; 
+                for (int j = i + 1; j < arr.Length; j++)
                 {
                     // loops through and finds the smallest number 
                     // swaps the smallest number with the number of the index it's on (arr[i]) 
 
-                    lowestValue = arr[j]; 
-                    if (arr[j].CompareTo(arr[j + 1]) > 0)
+                    if (arr[j].CompareTo(lowestValue) < 0)
                     {
-                        lowestValue = arr[j + 1]; 
+                        lowestValue = arr[j];
+                        minLocation = j; 
                     }                    
                 }
 
-                if (lowestValue.CompareTo(arr[i]) > 0)
+                if (minLocation != i)
                 {
-                    temp = lowestValue;
-                    lowestValue = arr[i];
+                    temp = arr[minLocation];
+                    arr[minLocation] = arr[i];
                     arr[i] = temp; 
                 }
             }
