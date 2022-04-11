@@ -151,5 +151,75 @@ namespace SortingTests
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void QuickSortPartitionTest()
+        {
+            int[] myArray = new int[] { 5, 3, 7, 2, 1, 8 };
+
+            int pivotIndex = Sorter<int>.Partition(myArray, 0, myArray.Length - 1);
+
+            Assert.AreEqual(3, pivotIndex); 
+        }
+
+        [TestMethod]
+        public void QuickSortOnRandomArrayOf100()
+        {
+            int[] arr = CloneRand;
+            Sorter<int>.QuickSort(arr);
+            string actual = ArrayToString(arr);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void QuickSortOnAscendingArrayOf100()
+        {
+            int[] arr = CloneAsc;
+            Sorter<int>.QuickSort(arr);
+            string actual = ArrayToString(arr);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void QuickSortOnDescendingArrayOf100()
+        {
+            int[] arr = CloneDesc;
+            Sorter<int>.QuickSort(arr);
+            string actual = ArrayToString(arr);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void MergeSortOnRandomArrayOf100()
+        {
+            int[] arr = CloneRand;
+            Sorter<int>.MergeSort(arr);
+            string actual = ArrayToString(arr);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void MergeSortOnAscendingArrayOf100()
+        {
+            int[] arr = CloneAsc;
+            Sorter<int>.MergeSort(arr);
+            string actual = ArrayToString(arr);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void MergeSortOnDescendingArrayOf100()
+        {
+            int[] arr = CloneDesc;
+            Sorter<int>.MergeSort(arr);
+            string actual = ArrayToString(arr);
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

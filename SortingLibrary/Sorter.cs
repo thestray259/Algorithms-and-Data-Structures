@@ -78,5 +78,39 @@ namespace SortingLibrary
                 }
             }
         }
+
+        public static void QuickSort(T[] arr) // recursive 
+        {
+            QuickSort(arr, 0, arr.Length - 1); 
+        }
+
+        private static void QuickSort(T[] arr, int start, int end)
+        {
+            int pivotIndex = Partition(arr, start, end); 
+
+            // MISSING STOP CASE 
+
+            // split array 
+            // keep going as long as start < end 
+            // start -> (pivot - 1) gets left part
+            // (pivot + 1) -> end gets right part 
+        }
+
+        public static int Partition(T[] arr, int start, int end) // needed for QuickSort 
+        {
+            T pivot = arr[start];
+
+            // find larger 
+            // find smaller 
+            // swap smaller and larger 
+            //start == end ??? return start or end (they are pointing at the same thing)
+
+            return 0; 
+        }
+
+        public static void MergeSort(T[] arr)
+        {
+
+        }
     }
 }
