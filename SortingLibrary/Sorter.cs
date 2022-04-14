@@ -108,9 +108,28 @@ namespace SortingLibrary
             return 0; 
         }
 
-        public static void MergeSort(T[] arr)
+        public static void MergeSort(T[] arr) // recursive
         {
+            if (arr.Length > 1)
+            {
+                // split (recursive) 
+                // arrLeft = arr.Length / 2 
+                // arrRight arr.Length - (arr.Length / 2) 
+                // copy data from arr to split arrays 
 
+                //MergeSort(arrLeft); 
+                //MergeSort(arrRight); 
+
+                //Merge(arr, arrLeft, arrRight); 
+            } // else do not split array
+
+        }
+
+        public static void Merge(T[] arr, T[] leftArr, T[] rightArr)
+        {
+            // iterate over left and right to find smallest 
+            // place smallest in first available index in arr 
+            // copy remaining non-empty array to original 
         }
     }
 }

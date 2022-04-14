@@ -221,5 +221,20 @@ namespace SortingTests
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void MergeCustomTest()
+        {
+            int[] original = new int[] { 7, 3, 2, 7, 9, 12 };
+            int[] left = new int[] { 7, 3, 2 };
+            int[] right = new int[] { 7, 9, 12 };
+
+            Sorter<int>.Merge(original, left, right);
+
+            string originalString = ArrayToString(original);
+            string expected2 = ArrayToString(new int[] { 2, 3, 7, 7, 8, 12 });
+
+            Assert.AreEqual(expected2, originalString);
+        }
     }
 }
