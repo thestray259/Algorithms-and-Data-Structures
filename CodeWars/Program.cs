@@ -6,7 +6,10 @@ namespace CodeWars
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            string[] test = { "n", "s", "w", "e", "n", "s", "s", "n", "w", "w" };
+
+            bool answer = Walk.IsValidWalk(test); 
+            Console.WriteLine(answer);
         }
     }
 }
