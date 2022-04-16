@@ -84,9 +84,37 @@ namespace SortingLibrary
             QuickSort(arr, 0, arr.Length - 1); 
         }
 
-        private static void QuickSort(T[] arr, int start, int end)
+        private static void QuickSort(T[] arr, int left, int right)
         {
-            int pivotIndex = Partition(arr, start, end); 
+            int i = left;
+            int j = right;
+
+            var pivot = arr[left + (right - left) / 2];
+
+            while (i <= j)
+            {
+                while (arr[i].CompareTo(pivot) < 0)
+                    i++;
+
+                while (arr[j].CompareTo(pivot) > 0)
+                    j--;
+
+                if (i <= j)
+                {
+                    var tmp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = tmp;
+
+                    i++;
+                    j--;
+                }
+            }
+
+            if (left < j)
+                QuickSort(arr, left, j);
+
+            if (i < right)
+                QuickSort(arr, i, right);
 
             // MISSING STOP CASE 
 
@@ -99,34 +127,116 @@ namespace SortingLibrary
         public static int Partition(T[] arr, int start, int end) // needed for QuickSort 
         {
             T pivot = arr[start];
+            int leftArrow = start;
+            int rightArrow = end;
+            T temp = default;
 
-            // find larger 
-            // find smaller 
+            while (leftArrow != rightArrow)
+            {
+                for (int i = arr.Length; i > arr.Length - 1; i--) // right arrow 
+                {
+                    // check if number is less than first arrow 
+                    // swap numbers 
+                    // pivot stays with original number 
+                    // break out of loop 
+
+                    //if (arr[i] < arr[pivot])
+                    {
+
+                    }
+
+                    rightArrow--;
+                }
+
+                for (int j = 0; j < arr.Length - 1; j++) // left arrow 
+                {
+                    // check if number is greater than pivot 
+                    // swap numbers 
+                }
+            }
+
+            // find larger - left arrow - need seperate variable
+            // find smaller - right arrow - need seperate variable
+            // while arrows are not the same 
+            // iterate right arrow -- 
+            // check if number is less than first arrow 
+            // swap numbers 
+            // pivot stays with original number 
+            // break out of loop 
+            // iterate left arrow ++ 
+            // check if number is greater than pivot 
+            // swap numbers 
+
             // swap smaller and larger 
             //start == end ??? return start or end (they are pointing at the same thing)
-
-            return 0; 
+            return start;
         }
 
         public static void MergeSort(T[] arr) // recursive
         {
             if (arr.Length > 1)
             {
-                // split (recursive) 
-                // arrLeft = arr.Length / 2 
-                // arrRight arr.Length - (arr.Length / 2) 
-                // copy data from arr to split arrays 
-
-                //MergeSort(arrLeft); 
-                //MergeSort(arrRight); 
-
-                //Merge(arr, arrLeft, arrRight); 
+                InternalMergeSort(arr); 
             } // else do not split array
-
         }
 
-        public static void Merge(T[] arr, T[] leftArr, T[] rightArr)
+        private static T[] InternalMergeSort(T[] items)
         {
+            int listLength = items.Length;
+
+            if (listLength == 1)
+            {
+                return items;
+            }
+
+            int median = listLength / 2;
+
+            T[] left = new T[median];
+            T[] right = new T[listLength - median];
+            Array.Copy(items, left, left.Length);
+            Array.Copy(items, median, right, 0, right.Length);
+
+            InternalMergeSort(left);
+            InternalMergeSort(right);
+
+            return Merge(items, left, right);
+        }
+
+        public static T[] Merge(T[] arr, T[] leftArr, T[] rightArr)
+        {
+            int leftIndex = 0;
+            int rightIndex = 0;
+
+            int leftLength = leftArr.Length;
+            int rightLength = rightArr.Length;
+            int totalItems = leftLength + rightLength;
+
+            for (int targetIndex = 0; targetIndex < totalItems; targetIndex++)
+            {
+                if (leftIndex >= leftLength)
+                {
+                    arr[targetIndex] = rightArr[rightIndex];
+                    rightIndex++;
+                }
+                else if (rightIndex >= rightArr.Length)
+                {
+                    arr[targetIndex] = leftArr[leftIndex];
+                    leftIndex++;
+                }
+                else if (leftArr[leftIndex].CompareTo(rightArr[rightIndex]) < 0)
+                {
+                    arr[targetIndex] = leftArr[leftIndex];
+                    leftIndex++;
+                }
+                else
+                {
+                    arr[targetIndex] = rightArr[rightIndex];
+                    rightIndex++;
+                }
+            }
+
+            return arr;
+
             // iterate over left and right to find smallest 
             // place smallest in first available index in arr 
             // copy remaining non-empty array to original 
