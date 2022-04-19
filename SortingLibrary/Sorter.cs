@@ -89,10 +89,13 @@ namespace SortingLibrary
             int i = left;
             int j = right;
 
+            // split array 
             var pivot = arr[left + (right - left) / 2];
-
+            // keep going as long as start < end 
             while (i <= j)
             {
+                // start -> (pivot - 1) gets left part
+                // (pivot + 1) -> end gets right part 
                 while (arr[i].CompareTo(pivot) < 0)
                     i++;
 
@@ -115,13 +118,6 @@ namespace SortingLibrary
 
             if (i < right)
                 QuickSort(arr, i, right);
-
-            // MISSING STOP CASE 
-
-            // split array 
-            // keep going as long as start < end 
-            // start -> (pivot - 1) gets left part
-            // (pivot + 1) -> end gets right part 
         }
 
         public static int Partition(T[] arr, int start, int end) // needed for QuickSort 
@@ -213,6 +209,9 @@ namespace SortingLibrary
 
             for (int targetIndex = 0; targetIndex < totalItems; targetIndex++)
             {
+                // iterate over left and right to find smallest 
+                // place smallest in first available index in arr 
+                // copy remaining non-empty array to original 
                 if (leftIndex >= leftLength)
                 {
                     arr[targetIndex] = rightArr[rightIndex];
@@ -236,10 +235,6 @@ namespace SortingLibrary
             }
 
             return arr;
-
-            // iterate over left and right to find smallest 
-            // place smallest in first available index in arr 
-            // copy remaining non-empty array to original 
         }
     }
 }
