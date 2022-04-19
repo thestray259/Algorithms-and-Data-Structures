@@ -8,19 +8,14 @@ namespace Labs
 {
     class Queens
     {
-        public static void QueenProgram()
-        {
-            int userInput; 
-
-            Console.WriteLine("Input a number greater than zero. ");
-            // read in user input 
-            // if userInput is <= 0 then promt to try again 
-            // else set user input to userInput 
-            // call QueensSoln(userInput) 
-        }
+        private static int N; // ??? 
+        private static int Steps = 0; 
+        // collection of solutions 
 
         public static void QueensSoln(int num)
         {
+            N = num; // ???
+            int[,] board;// = board[N, N]; 
             // num has to be positive 
             if (num <= 0) return; 
         }

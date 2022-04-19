@@ -11,6 +11,8 @@ namespace CodeWars
         public static string Phone(string strng, string num) //strng = the entire jumbled string, num = the phone number 
         {
             // your code
+            string name = ""; 
+            string address = ""; 
             // check for if the number doesn't exist, return "Error => Not found: 5-555-555-5555"
 
             // Match found = Regex.Match(string, @"\d.......") 
@@ -20,7 +22,7 @@ namespace CodeWars
 
             // get phone number 
 
-            return ""; 
+            return "Phone => " + num + ", Name => " + name + ", Address => " + address; 
         }
     }
 }
