@@ -113,11 +113,9 @@ namespace SortingLibrary
                 }
             }
 
-            if (left < j)
-                QuickSort(arr, left, j);
+            if (left < j) QuickSort(arr, left, j);
 
-            if (i < right)
-                QuickSort(arr, i, right);
+            if (i < right) QuickSort(arr, i, right);
         }
 
         public static int Partition(T[] arr, int start, int end) // needed for QuickSort 
