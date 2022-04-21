@@ -6,10 +6,13 @@ namespace CodeWars
     {
         static void Main(string[] args)
         {
-            string[] test = { "n", "s", "w", "e", "n", "s", "s", "n", "w", "w" };
+            int[] foldArray = { 1, 2, 3, 4, 5 };
 
-            bool answer = Walk.IsValidWalk(test); 
-            Console.WriteLine(answer);
+            int[] foldOutput = FoldArrayInHalf.FoldArray(foldArray, 1); 
+            foreach (var num in foldOutput)
+            {
+                Console.WriteLine(num);
+            }
         }
     }
 }
