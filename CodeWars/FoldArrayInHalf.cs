@@ -12,9 +12,9 @@ namespace CodeWars
         {
             List<int> arrList = new List<int>();
 
-            for (int i = 0; i < array.Length; i++)
+            foreach (var num in array)
             {
-                arrList.Add(array[i]);
+                arrList.Add(num); 
             }
 
             for (int i = 0; i < runs; i++)
@@ -38,6 +38,7 @@ namespace CodeWars
             {
                 foldedArray[i] = arrList[i];
             }
+
             return foldedArray;
         }
     }

@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AlgoDataStructures\AlgoDataStructures.csproj" />
     <ProjectReference Include="..\CodeWars\CodeWars.csproj" />
     <ProjectReference Include="..\Labs\Labs.csproj" />
     <ProjectReference Include="..\Search\Search.csproj" />
