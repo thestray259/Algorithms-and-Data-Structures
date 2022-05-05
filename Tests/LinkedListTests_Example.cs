@@ -115,62 +115,183 @@ namespace LinkedListTester
         [TestMethod]
         public void SLL_ListOfOne()
         {
-            throw new NotImplementedException();
+            SingleLinkedList<int> list = CreateSLLOne();
+
+            int expectedCount = 1;
+            string expectedString = "24";
+
+            int actualCount = list.Count;
+            string actualString = list.ToString();
+
+            Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual(expectedString, actualString); 
         }
 
         [TestMethod]
         public void SLL_ListOfTen()
         {
-            throw new NotImplementedException();
+            SingleLinkedList<int> list = CreateSLLTen();
+
+            int expectedCount = 10;
+            string expectedString = "";
+
+            // actuals 
+            int actualCount = list.Count;
+            string actualString = list.ToString();
+
+            // asserts 
+            Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual(expectedString, actualString); 
         }
 
         [TestMethod]
         public void SLL_ListOfOne_Remove()
         {
-            throw new NotImplementedException();
+            SingleLinkedList<int> list = CreateSLLOne();
+
+            int expectedCount = 0;
+            int expectedReturn = 24;
+            string expectedString = "";
+
+            int actualCount = list.Count;
+            int actualReturn = list.Remove();
+            string actualString = list.ToString();
+
+            Assert.AreEqual(expectedCount, actualCount); 
+            Assert.AreEqual(expectedReturn, actualReturn); 
+            Assert.AreEqual(expectedString, actualString); 
         }
 
         [TestMethod]
         public void SLL_ListOfTen_Remove()
         {
-            throw new NotImplementedException();
+            SingleLinkedList<int> list = CreateSLLTen();
+
+            int expectedCount = 9;
+            int expectedReturn = 24;
+            string expectedString = "3, 6, 0, 6, 17, 100, 2014, 122778, 42";
+
+            int actualCount = list.Count;
+            int actualReturn = list.Remove();
+            string actualString = list.ToString();
+
+            Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual(expectedReturn, actualReturn);
+            Assert.AreEqual(expectedString, actualString); 
         }
 
         [TestMethod]
         public void SLL_ListOfTen_RemoveAll()
         {
-            throw new NotImplementedException();
+            SingleLinkedList<int> list = CreateSLLTen();
+
+            int expectedReturn = 42;
+            int expectedCount = 0;
+            string expectedString = "";
+            int actualReturn = 0; 
+
+            for (int i = 0; i < 10; i++)
+            {
+                actualReturn = (int)list.Remove(); 
+            }
+
+            int actualCount = list.Count; 
+            string actualString = list.ToString();
+
+            Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual(expectedReturn, actualReturn);
+            Assert.AreEqual(expectedString, actualString);
         }
 
         [TestMethod]
         public void SLL_ListOfTen_RemoveThenAdd()
         {
-            throw new NotImplementedException();
+            SingleLinkedList<int> list = CreateSLLTen();
+
+            int expectedCount = 10;
+            string expectedString = "3, 6, 0, 6, 17, 100, 2014, 122778, 42, 2";
+
+            list.Remove();
+            list.Add(2);
+
+            int actualCount = list.Count;
+            string actualString = list.ToString();
+
+            Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual(expectedString, actualString); 
         }
 
         [TestMethod]
         public void SLL_ListOfTen_RemoveAt0()
         {
-            throw new NotImplementedException();
+            SingleLinkedList<int> list = CreateSLLTen();
+
+            int expectedReturn = 24;
+            int expectedCount = 9;
+            string expectedString = "3, 6, 0, 6, 17, 100, 2014, 122778, 42, 2";
+
+            int actualReturn = (int)list.RemoveAt(0);
+            int actualCount = list.Count;
+            string actualString = list.ToString();
+
+            Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual(expectedReturn, actualReturn);
+            Assert.AreEqual(expectedString, actualString);
         }
 
         [TestMethod]
         public void SLL_ListOfTen_RemoveAt5()
         {
-            throw new NotImplementedException();
+            SingleLinkedList<int> list = CreateSLLTen();
+
+            int expectedReturn = 17;
+            int expectedCount = 9;
+            string expectedString = "24, 3, 6, 0, 6, 100, 2014, 122778, 42, 2";
+
+            int actualReturn = (int)list.RemoveAt(5);
+            int actualCount = list.Count;
+            string actualString = list.ToString();
+
+            Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual(expectedReturn, actualReturn);
+            Assert.AreEqual(expectedString, actualString);
         }
 
         [TestMethod]
         public void SLL_ListOfTen_RemoveAt9()
         {
-            throw new NotImplementedException();
+            SingleLinkedList<int> list = CreateSLLTen();
+
+            int expectedReturn = 42;
+            int expectedCount = 9;
+            string expectedString = "24, 3, 6, 0, 6, 17, 100, 2014, 122778, 2";
+
+            int actualReturn = (int)list.RemoveAt(9);
+            int actualCount = list.Count;
+            string actualString = list.ToString();
+
+            Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual(expectedReturn, actualReturn);
+            Assert.AreEqual(expectedString, actualString);
         }
 
         [TestMethod]
         [ExpectedException(typeof(IndexOutOfRangeException), "Out-of-bounds index was allowed")]
         public void SLL_ListOfTen_RemoveAt10Exception()
         {
-            throw new NotImplementedException();
+            SingleLinkedList<int> list = CreateSLLTen();
+
+            int expectedReturn = 2;
+            int expectedCount = 9;
+            string expectedString = "24, 3, 6, 0, 6, 17, 100, 2014, 122778, 42";
+
+            int actualReturn = (int)list.RemoveAt(10);
+            int actualCount = list.Count;
+            string actualString = list.ToString();
+
+            Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual(expectedReturn, actualReturn);
+            Assert.AreEqual(expectedString, actualString);
         }
 
         [TestMethod]
