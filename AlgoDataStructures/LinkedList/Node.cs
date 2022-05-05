@@ -8,7 +8,18 @@ namespace AlgoDataStructures
 {
     public class Node<T>
     {
+        public Node() { } 
         // add constructor, 1 variable of type T 
+        public Node(T data)
+        {
+            this.Data = data;  
+        }
+
+        public Node(T data, Node<T> next)
+        {
+            this.Data = data;
+            this.Next = next; 
+        }
 
         public T Data { get; set; }
 
