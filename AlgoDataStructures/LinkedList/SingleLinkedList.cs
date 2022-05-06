@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace AlgoDataStructures
 {
@@ -15,21 +16,14 @@ namespace AlgoDataStructures
         public Node<T> Head { get; set; }
         public int Count { get { return count; } } // done?
 
-        public void Add(T v) // done? 
+        public void Add(T v) // sorts 
         {
-            InsertBack(v); 
+            InsertBack(v); // work to be done in here I think 
 
             if (Head == null && firstNode != null) Head = firstNode;  
-            /*Node<T> first = Head; 
-            while (first.Next != null)
-            {
-                first = first.Next; 
-            }
-
-            first.Next = new Node<T>(v); */
         }
 
-        public void Insert(T val, int index) // done? 
+        public void Insert(T val, int index) // needs work  
         {
             if (Head == null && firstNode != null) Head = firstNode;
 
@@ -54,14 +48,25 @@ namespace AlgoDataStructures
 
         public T Get(int index)
         {
+            Node<T> current = Head;
+            int nodeIndex = 0;
+            T doesNotExist = default;
+
             if (index < 0 || index >= Count)
             {
                 throw new IndexOutOfRangeException();
             }
 
-            // return list[index] 
-            throw new NotImplementedException(); 
-        } // do this 
+            while (current != null)
+            {
+                if (nodeIndex == index) return current.Data;
+                nodeIndex++;
+                current = current.Next; 
+            }
+
+            Debug.Assert(false);
+            return doesNotExist; 
+        } // works
 
         public object Remove() // do this 
         {
@@ -99,9 +104,9 @@ namespace AlgoDataStructures
             }
 
             return removedItem; 
-        } // done?
+        } // needs work 
 
-        public object RemoveLast() // done? 
+        public object RemoveLast() // needs work 
         {
             if (firstNode == null) Console.WriteLine("List is empty. ");
 
@@ -114,21 +119,10 @@ namespace AlgoDataStructures
             Node<T> current = Head; 
 
             string returnString = "";
-            /*            foreach (T item in this) // only returns 0
-                        {
-                            if (returnString.Length > 0) returnString.Append(", ");
-                            returnString.Append(item); 
-                        }*/
 
-            /*            for (int i = 0; i < this.Count; i++) // cannot index linked list, so only prints the indexes and not the values 
-                        {
-                            if (returnString.Length > 0) returnString.Append(", ");
-                            returnString.Append(i);
-                        }*/
+            //if (Count == 1) returnString += current.Data; 
 
-            if (Count == 1) returnString += current.Data; 
-
-            while (current.Next != null)
+            while (current != null)
             {
                 if (returnString.Length > 0) returnString += ", ";
                 returnString += current.Data;
@@ -137,7 +131,7 @@ namespace AlgoDataStructures
             }
 
             return returnString.ToString(); 
-        } // item isn't the value, so string is printing wrong 
+        } // should work now, definitely works for adding numbers 
 
         public void Clear() // done? 
         {
@@ -145,7 +139,7 @@ namespace AlgoDataStructures
             count = 0; 
         }
 
-        public object Search(T val)
+        public int Search(T val)
         {
             SingleLinkedList<T> list = new SingleLinkedList<T>(); 
             Node<T> currentNode = firstNode; 
@@ -167,23 +161,24 @@ namespace AlgoDataStructures
             count++; 
         }
 
-        public void InsertBack(T value)
+        public void InsertBack(T value) // works now 
         {
             if (firstNode == null) firstNode = lastNode = new Node<T>(value);
             else if (lastNode == null) lastNode = lastNode.Next = new Node<T>(value);
             else
             {
-                Node<T> currentNode = firstNode;
+                Node<T> newNode = new Node<T>(value); 
+                Node<T> currentNode = Head;
 
-                for (int i = 0; i < count - 2; i++)
+                newNode.Next = null; 
+
+                while (currentNode.Next != null)
                 {
                     currentNode = currentNode.Next;
                 }
 
-                Node<T> newNode = new Node<T>(value, currentNode.Next);
-                currentNode.Next = newNode;
-
-                lastNode = lastNode.Next = new Node<T>(value);
+                currentNode.Next = newNode; 
+                lastNode = lastNode.Next = newNode;
             }
             count++;
         }
@@ -230,28 +225,5 @@ namespace AlgoDataStructures
                 currentNode = currentNode.Next; 
             }
         }
-
-/*        public void Insert(Node<T> node, T val, int index) // done? 
-        {
-            if (Head == null && firstNode != null) Head = firstNode;
-
-            if (index < 0 || index >= Count) throw new IndexOutOfRangeException();
-
-            if (index == 0) InsertFront(val);
-            else if (index == (count - 1)) InsertBack(val);
-            else
-            {
-                Node<T> currentNode = firstNode;
-
-                for (int i = 0; i < index - 1; i++)
-                {
-                    currentNode = currentNode.Next;
-                }
-
-                Node<T> newNode = new Node<T>(val, currentNode.Next);
-                currentNode.Next = newNode;
-                count++;
-            }
-        }*/
     }
 }

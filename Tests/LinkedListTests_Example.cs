@@ -134,7 +134,7 @@ namespace LinkedListTester
             SingleLinkedList<int> list = CreateSLLTen();
 
             int expectedCount = 10;
-            string expectedString = "";
+            string expectedString = "24, 3, 6, 0, 6, 17, 100, 2014, 122778, 42";
 
             // actuals 
             int actualCount = list.Count;
@@ -295,93 +295,232 @@ namespace LinkedListTester
             Assert.AreEqual(expectedString, actualString);
         }
 
-       /* [TestMethod]
+        [TestMethod]
         public void SLL_ListOfTen_InsertAt0()
         {
-            throw new NotImplementedException();
+            SingleLinkedList<int> list = CreateSLLTen();
+
+            int expectedCount = 11; 
+            string expectedString = "69, 24, 3, 6, 0, 6, 17, 100, 2014, 122778, 42";
+
+            list.Insert(69, 0); 
+            int actualCount = list.Count;
+            string actualString = list.ToString();
+
+            Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual(expectedString, actualString);
         }
 
         [TestMethod]
         public void SLL_ListOfTen_InsertAt5()
         {
-            throw new NotImplementedException();
+            SingleLinkedList<int> list = CreateSLLTen();
+
+            int expectedCount = 11; 
+            string expectedString = "24, 3, 6, 0, 6, 56, 17, 100, 2014, 122778, 42";
+
+            list.Insert(56, 5); 
+            int actualCount = list.Count;
+            string actualString = list.ToString();
+
+            Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual(expectedString, actualString);
         }
 
         [TestMethod]
         public void SLL_ListOfTen_InsertAt9()
         {
-            throw new NotImplementedException();
-        }*/
+            SingleLinkedList<int> list = CreateSLLTen();
 
-        /*[TestMethod]
+            int expectedCount = 11;
+            string expectedString = "24, 3, 6, 0, 6, 17, 100, 2014, 122778, 9, 42";
+
+            list.Insert(9, 9);
+            int actualCount = list.Count;
+            string actualString = list.ToString();
+
+            Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual(expectedString, actualString);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(IndexOutOfRangeException), "Out-of-bounds index was allowed")]
         public void SLL_ListOfTen_InsertAt10Exception()
         {
-            throw new NotImplementedException();
+            SingleLinkedList<int> list = CreateSLLTen();
+            list.Insert(411, 10); 
         }
 
         [TestMethod]
         public void SLL_ListOfTen_GetAt0()
         {
-            throw new NotImplementedException();
+            SingleLinkedList<int> list = CreateSLLTen();
+
+            int expectedReturn = 24;
+            int expectedCount = 10; 
+            string expectedString = "24, 3, 6, 0, 6, 17, 100, 2014, 122778, 42";
+
+            int actualReturn = list.Get(0);
+            int actualCount = list.Count;
+            string actualString = list.ToString();
+
+            Assert.AreEqual(expectedReturn, actualReturn);
+            Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual(expectedString, actualString);
         }
 
         [TestMethod]
         public void SLL_ListOfTen_GetAt5()
         {
-            throw new NotImplementedException();
+            SingleLinkedList<int> list = CreateSLLTen();
+
+            int expectedReturn = 17;
+            int expectedCount = 10;
+            string expectedString = "24, 3, 6, 0, 6, 17, 100, 2014, 122778, 42";
+
+            int actualReturn = list.Get(5);
+            int actualCount = list.Count;
+            string actualString = list.ToString();
+
+            Assert.AreEqual(expectedReturn, actualReturn);
+            Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual(expectedString, actualString);
         }
 
         [TestMethod]
         public void SLL_ListOfTen_GetAt9()
         {
-            throw new NotImplementedException();
+            SingleLinkedList<int> list = CreateSLLTen();
+
+            int expectedReturn = 42;
+            int expectedCount = 10;
+            string expectedString = "24, 3, 6, 0, 6, 17, 100, 2014, 122778, 42";
+
+            int actualReturn = list.Get(9);
+            int actualCount = list.Count;
+            string actualString = list.ToString();
+
+            Assert.AreEqual(expectedReturn, actualReturn);
+            Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual(expectedString, actualString);
         }
 
         [TestMethod]
         [ExpectedException(typeof(IndexOutOfRangeException), "Out-of-bounds index was allowed")]
         public void SLL_ListOfTen_GetAt10Exception()
         {
-            throw new NotImplementedException();
+            SingleLinkedList<int> list = CreateSLLTen();
+            list.Get(10);
         }
 
         [TestMethod]
         public void SLL_ListOfTen_SearchForValueAtHead()
         {
-            throw new NotImplementedException();
+            SingleLinkedList<int> list = CreateSLLTen();
+
+            int expectedReturn = 0;
+            int expectedCount = 10; 
+            string expectedString = "24, 3, 6, 0, 6, 17, 100, 2014, 122778, 42";
+
+            int actualReturn = list.Search(24);
+            int actualCount = list.Count;
+            string actualString = list.ToString();
+
+            Assert.AreEqual(expectedReturn, actualReturn);
+            Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual(expectedString, actualString);
         }
 
         [TestMethod]
         public void SLL_ListOfTen_SearchForValueAtTail()
         {
-            throw new NotImplementedException();
+            SingleLinkedList<int> list = CreateSLLTen();
+
+            int expectedReturn = 9;
+            int expectedCount = 10;
+            string expectedString = "24, 3, 6, 0, 6, 17, 100, 2014, 122778, 42";
+
+            int actualReturn = list.Search(42);
+            int actualCount = list.Count;
+            string actualString = list.ToString();
+
+            Assert.AreEqual(expectedReturn, actualReturn);
+            Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual(expectedString, actualString);
         }
 
         [TestMethod]
         public void SLL_ListOfTen_SearchForValueAppearsTwice()
         {
-            throw new NotImplementedException();
+            SingleLinkedList<int> list = CreateSLLTen();
+
+            int expectedReturn = 2;
+            int expectedCount = 10;
+            string expectedString = "24, 3, 6, 0, 6, 17, 100, 2014, 122778, 42";
+
+            int actualReturn = list.Search(6);
+            int actualCount = list.Count;
+            string actualString = list.ToString();
+
+            Assert.AreEqual(expectedReturn, actualReturn);
+            Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual(expectedString, actualString);
         }
 
         [TestMethod]
         public void SLL_ListOfTen_SearchForValueNotInList()
         {
-            throw new NotImplementedException();
+            SingleLinkedList<int> list = CreateSLLTen();
+
+            int expectedReturn = -1;
+            int expectedCount = 10;
+            string expectedString = "24, 3, 6, 0, 6, 17, 100, 2014, 122778, 42";
+
+            int actualReturn = list.Search(4);
+            int actualCount = list.Count;
+            string actualString = list.ToString();
+
+            Assert.AreEqual(expectedReturn, actualReturn);
+            Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual(expectedString, actualString);
         }
 
         [TestMethod]
         public void SLL_ListOfTen_SearchForValueInEmptyList()
         {
-            throw new NotImplementedException();
+            SingleLinkedList<int> list = new SingleLinkedList<int>(); 
+
+            int expectedReturn = -1;
+            int expectedCount = 0;
+            string expectedString = "";
+
+            int actualReturn = list.Search(42);
+            int actualCount = list.Count;
+            string actualString = list.ToString();
+
+            Assert.AreEqual(expectedReturn, actualReturn);
+            Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual(expectedString, actualString);
         }
 
         [TestMethod]
         public void SLL_Clear()
         {
-            throw new NotImplementedException();
+            SingleLinkedList<int> list = CreateSLLTen();
+
+            int expectedCount = 0;
+            string expectedString = "";
+
+            list.Clear();
+
+            int actualCount = list.Count;
+            string actualString = list.ToString();
+
+            Assert.AreEqual(expectedCount, actualCount);
+            Assert.AreEqual(expectedString, actualString);
         }
 
-        [TestMethod]
+        /*[TestMethod]
         public void DLL_EmptyList()
         {
             throw new NotImplementedException();
