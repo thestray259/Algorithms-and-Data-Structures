@@ -6,31 +6,12 @@ namespace Labs
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("NQueens");
-            Console.WriteLine("Enter a number greater than 0. ");
-            int n = int.Parse(Console.ReadLine());
+            AlgoDataStructures.SingleLinkedList<int> list = new AlgoDataStructures.SingleLinkedList<int>();
+            list.Add(2);
+            //list.Add(6);
+            //list.Add(12);
 
-            Console.WriteLine("n = " + n);
-
-            Queens.QueensSoln(n); 
-
-            /*var watch = new System.Diagnostics.Stopwatch();
-            int[] array1;// = new int[4] { 5, 2, 3, 5 }; 
-            int[] array2;// = new int[5] { 2, 5, 5, 5, 5 };
-
-            array1 = MatchArray.RandomArray(250000, 1, 1000); 
-            array2 = MatchArray.RandomArray(250000, 1, 1000);
-
-            watch.Start();
-            int[] output = MatchArray.MatchingNumbers(array1, array2);
-            foreach (var item in output)
-            {
-                Console.Write(item + ", ");
-            }
-            watch.Stop();
-
-            Console.WriteLine("");
-            Console.WriteLine($"Execution time: {watch.ElapsedMilliseconds} ms");*/
+            Console.WriteLine(list.ToString());
         }
     }
 }
