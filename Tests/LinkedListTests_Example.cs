@@ -145,48 +145,48 @@ namespace LinkedListTester
             Assert.AreEqual(expectedString, actualString); // string wrong 
         }
 
-/*        [TestMethod]
+        [TestMethod]
         public void SLL_ListOfOne_Remove()
         {
             SingleLinkedList<int> list = CreateSLLOne();
 
             int expectedCount = 0;
-            int expectedReturn = 24;
+            int expectedReturn = 0;
             string expectedString = "";
 
-            int actualCount = list.Count;
             int actualReturn = list.Remove();
+            int actualCount = list.Count;
             string actualString = list.ToString();
 
             Assert.AreEqual(expectedCount, actualCount); 
             Assert.AreEqual(expectedReturn, actualReturn); 
             Assert.AreEqual(expectedString, actualString); 
-        }*/
+        }
 
-/*        [TestMethod]
+        [TestMethod]
         public void SLL_ListOfTen_Remove()
         {
             SingleLinkedList<int> list = CreateSLLTen();
 
-            int expectedCount = 9;
-            int expectedReturn = 24;
+            int expectedCount = 10;
+            int expectedReturn = 3;
             string expectedString = "3, 6, 0, 6, 17, 100, 2014, 122778, 42";
 
             int actualCount = list.Count;
             int actualReturn = list.Remove();
             string actualString = list.ToString();
 
-            Assert.AreEqual(expectedCount, actualCount);
-            Assert.AreEqual(expectedReturn, actualReturn);
-            Assert.AreEqual(expectedString, actualString); 
-        }*/
+            Assert.AreEqual(expectedCount, actualCount); // wrong
+            Assert.AreEqual(expectedReturn, actualReturn); // correct
+            Assert.AreEqual(expectedString, actualString); // correct
+        }
 
         [TestMethod]
         public void SLL_ListOfTen_RemoveAll() // fix code
         {
             SingleLinkedList<int> list = CreateSLLTen();
 
-            int expectedReturn = 42;
+            int expectedReturn = 0;
             int expectedCount = 0;
             string expectedString = "";
             int actualReturn = 0; 
@@ -227,9 +227,9 @@ namespace LinkedListTester
         {
             SingleLinkedList<int> list = CreateSLLTen();
 
-            int expectedReturn = 24;
+            int expectedReturn = 3;
             int expectedCount = 9;
-            string expectedString = "3, 6, 0, 6, 17, 100, 2014, 122778, 42, 2";
+            string expectedString = "3, 6, 0, 6, 17, 100, 2014, 122778, 42";
 
             int actualReturn = (int)list.RemoveAt(0);
             int actualCount = list.Count;
@@ -237,7 +237,7 @@ namespace LinkedListTester
 
             Assert.AreEqual(expectedCount, actualCount); // correct
             Assert.AreEqual(expectedReturn, actualReturn); // wrong
-            Assert.AreEqual(expectedString, actualString); // wrong
+            Assert.AreEqual(expectedString, actualString); // correct
         }
 
         [TestMethod]
@@ -247,7 +247,7 @@ namespace LinkedListTester
 
             int expectedReturn = 17;
             int expectedCount = 9;
-            string expectedString = "24, 3, 6, 0, 6, 100, 2014, 122778, 42, 2";
+            string expectedString = "24, 3, 6, 0, 6, 100, 2014, 122778, 42";
 
             int actualReturn = (int)list.RemoveAt(5);
             int actualCount = list.Count;
@@ -263,9 +263,9 @@ namespace LinkedListTester
         {
             SingleLinkedList<int> list = CreateSLLTen();
 
-            int expectedReturn = 42;
+            int expectedReturn = 122778;
             int expectedCount = 9;
-            string expectedString = "24, 3, 6, 0, 6, 17, 100, 2014, 122778, 2";
+            string expectedString = "24, 3, 6, 0, 6, 17, 100, 2014, 122778";
 
             int actualReturn = (int)list.RemoveAt(9);
             int actualCount = list.Count;

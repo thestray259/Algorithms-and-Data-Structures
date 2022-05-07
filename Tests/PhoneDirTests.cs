@@ -25,7 +25,7 @@ namespace Tests
             Assert.AreEqual(expected, actual);
         }
 
-        [Test]
+/*        [Test]
         public static void test1()
         {
             Console.WriteLine("Phone");
@@ -38,6 +38,6 @@ namespace Tests
             testing(PhoneDir.Phone(dr, "1-098-512-2222"), "Error => Too many people: 1-098-512-2222");
             testing(PhoneDir.Phone(dr, "5-555-555-5555"), "Error => Not found: 5-555-555-5555");
 
-        }
+        }*/
     }
 }

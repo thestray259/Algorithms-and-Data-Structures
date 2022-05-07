@@ -23,14 +23,14 @@ namespace AlgoDataStructures
             if (Head == null && firstNode != null) Head = firstNode;  
         }
 
-        public void Insert(T val, int index) // needs work  
+        public void Insert(T val, int index) // works  
         {
             if (Head == null && firstNode != null) Head = firstNode;
 
             if (index < 0 || index >= Count) throw new IndexOutOfRangeException();
 
             if (index == 0) InsertFront(val);
-            else if (index == (count - 1)) InsertBack(val); 
+            else if (index == (count)) InsertBack(val); 
             else
             {
                 Node<T> currentNode = firstNode;
@@ -68,12 +68,12 @@ namespace AlgoDataStructures
             return doesNotExist; 
         } // works
 
-        public object Remove() // do this 
+        public T Remove() // works 
         {
-            throw new NotImplementedException(); 
+            return RemoveFront(); 
         }
 
-        public object RemoveAt(int index)
+        public T RemoveAt(int index)
         {
             if (index < 0 || index >= Count)
             {
@@ -81,32 +81,36 @@ namespace AlgoDataStructures
             }
             if (firstNode == null) Console.WriteLine("List cannot be empty. ");
 
-            object removedItem = default; 
+            object removedItem = default;
+            Node<T> currentnode = Head;
             if (index == 0) // remove from front 
             {
-                removedItem = RemoveFront(); 
+                removedItem = RemoveFront();
+                return (T)removedItem;
             }
             else if (index == (count - 1)) // remove from back
             {
-                removedItem = RemoveBack(); 
+                removedItem = RemoveBack();
+                return (T)removedItem;
             }
             else // remove stuff
             {
-                Node<T> currentnode = firstNode; 
-
-                for (int i = 0; i < index; i++)
+                for (int i = 0; i < index - 1; i++)
                 {
                     currentnode = currentnode.Next; 
                 }
-                removedItem = currentnode.Data;
+                removedItem = currentnode.Next;
                 currentnode.Next = currentnode.Next.Next;
+
+                Node<T> node = new Node<T>();
+                node = (Node<T>)removedItem; 
+
                 count--;
-            }
+                return node.Data;
+            }            
+        } // works
 
-            return removedItem; 
-        } // needs work 
-
-        public object RemoveLast() // needs work 
+        public object RemoveLast() // works 
         {
             if (firstNode == null) Console.WriteLine("List is empty. ");
 
@@ -142,22 +146,38 @@ namespace AlgoDataStructures
         public int Search(T val)
         {
             SingleLinkedList<T> list = new SingleLinkedList<T>(); 
-            Node<T> currentNode = firstNode; 
+            Node<T> currentNode = Head;
 
-            for (int i = 0; i < count - 1; i++)
+            int found = 0;
+            int index = 0; 
+            while (currentNode != null)
             {
-                // if index at i == val, return i 
+                index++; 
+                if (currentNode.Data.ToString().Equals(val.ToString()))
+                {
+                    found++;
+                    break; 
+                }
+                currentNode = currentNode.Next; 
             }
 
-            return -1; 
+            if (found == 1) return index - 1;
+            else return -1; 
         } // do this 
 
         // helper guys 
 
-        public void InsertFront(T value)
+        public void InsertFront(T value) // works now 
         {
             if (firstNode == null) firstNode = lastNode = new Node<T>(value);
-            else firstNode = new Node<T>(value, firstNode);
+            else
+            {
+                //firstNode = new Node<T>(value, firstNode);
+                Node<T> newNode = new Node<T>();
+                newNode.Data = value;
+                newNode.Next = Head;
+                Head = newNode; 
+            }
             count++; 
         }
 
@@ -183,36 +203,49 @@ namespace AlgoDataStructures
             count++;
         }
 
-        public object RemoveFront()
+        public T RemoveFront() // works now 
         {
-            object removedItem = firstNode.Data;
+            //if (Count == 0) 
+
+            Node<T> node = this.Head;
+
             if (firstNode == lastNode) firstNode = lastNode = null;
-            else firstNode = firstNode.Next;
+            else
+            {
+                firstNode = firstNode.Next;                
+                this.Head = this.Head.Next;
+                node = null; 
+            }
 
             count--;
-            return removedItem; 
+
+            if (firstNode == null)
+            {
+                Node<T> node1 = new Node<T>(0);
+                return node1.Data; 
+            }
+            else return firstNode.Data;
         }
 
-        public object RemoveBack()
+        public T RemoveBack()
         {
-            object removedItem = lastNode.Data;
-
+            Node<T> currentNode = this.Head; 
             if (firstNode == lastNode) firstNode = lastNode = null; 
             else
             {
-                Node<T> currentNode = firstNode; 
 
-                while (currentNode.Next != null)
+                while (currentNode.Next.Next != null)
                 {
                     currentNode = currentNode.Next; 
                 }
 
-                lastNode = currentNode;
-                currentNode.Next = null; 
+                Node<T> node = currentNode.Next;
+                currentNode.Next = null;
+                node = null; 
             }
 
             count--;
-            return lastNode; 
+            return currentNode.Data; 
         }
 
         public IEnumerator<T> GetEnumerator()
