@@ -22,9 +22,17 @@ namespace AlgoDataStructures
             this.Next = next; 
         }
 
+        public Node(T data, Node<T> next, Node<T> prev)
+        {
+            this.Data = data;
+            this.Next = next;
+            this.Prev = prev; 
+        }
+
         public T Data { get; set; }
 
         public Node<T> Next { get; set; }
+        public Node<T> Prev { get; set; }
 
         public override string ToString() // do this 
         {

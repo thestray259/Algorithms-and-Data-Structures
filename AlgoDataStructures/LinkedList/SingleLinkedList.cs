@@ -14,11 +14,11 @@ namespace AlgoDataStructures
         Node<T> lastNode = null;
 
         public Node<T> Head { get; set; }
-        public int Count { get { return count; } } // done?
+        public int Count { get { return count; } } // works
 
-        public void Add(T v) // sorts 
+        public void Add(T v) // works 
         {
-            InsertBack(v); // work to be done in here I think 
+            InsertBack(v); 
 
             if (Head == null && firstNode != null) Head = firstNode;  
         }
@@ -124,8 +124,6 @@ namespace AlgoDataStructures
 
             string returnString = "";
 
-            //if (Count == 1) returnString += current.Data; 
-
             while (current != null)
             {
                 if (returnString.Length > 0) returnString += ", ";
@@ -135,7 +133,7 @@ namespace AlgoDataStructures
             }
 
             return returnString.ToString(); 
-        } // should work now, definitely works for adding numbers 
+        } // works 
 
         public void Clear() // done? 
         {
@@ -163,7 +161,7 @@ namespace AlgoDataStructures
 
             if (found == 1) return index - 1;
             else return -1; 
-        } // do this 
+        } // works 
 
         // helper guys 
 
@@ -205,8 +203,6 @@ namespace AlgoDataStructures
 
         public T RemoveFront() // works now 
         {
-            //if (Count == 0) 
-
             Node<T> node = this.Head;
 
             if (firstNode == lastNode) firstNode = lastNode = null;

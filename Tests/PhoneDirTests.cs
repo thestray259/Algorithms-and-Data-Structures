@@ -25,19 +25,19 @@ namespace Tests
             Assert.AreEqual(expected, actual);
         }
 
-/*        [Test]
-        public static void test1()
-        {
-            Console.WriteLine("Phone");
-            testing(PhoneDir.Phone(dr, "48-421-674-8974"), "Phone => 48-421-674-8974, Name => Anastasia, Address => Via Quirinal Roma");
-            testing(PhoneDir.Phone(dr, "1-921-512-2222"), "Phone => 1-921-512-2222, Name => Wilfrid Stevens, Address => Wild Street AA-67209");
-            testing(PhoneDir.Phone(dr, "1-908-512-2222"), "Phone => 1-908-512-2222, Name => Peter O'Brien, Address => High Street CC-47209");
-            testing(PhoneDir.Phone(dr, "1-541-754-3010"), "Phone => 1-541-754-3010, Name => J Steeve, Address => 156 Alphand St.");
-            testing(PhoneDir.Phone(dr, "1-121-504-8974"), "Phone => 1-121-504-8974, Name => Arthur Clarke, Address => San Antonio TT-45120");
-            testing(PhoneDir.Phone(dr, "1-498-512-2222"), "Phone => 1-498-512-2222, Name => Bernard Deltheil, Address => Mount Av. Eldorado");
-            testing(PhoneDir.Phone(dr, "1-098-512-2222"), "Error => Too many people: 1-098-512-2222");
-            testing(PhoneDir.Phone(dr, "5-555-555-5555"), "Error => Not found: 5-555-555-5555");
+        /*        [Test]
+                public static void test1()
+                {
+                    Console.WriteLine("Phone");
+                    testing(PhoneDir.Phone(dr, "48-421-674-8974"), "Phone => 48-421-674-8974, Name => Anastasia, Address => Via Quirinal Roma");
+                    testing(PhoneDir.Phone(dr, "1-921-512-2222"), "Phone => 1-921-512-2222, Name => Wilfrid Stevens, Address => Wild Street AA-67209");
+                    testing(PhoneDir.Phone(dr, "1-908-512-2222"), "Phone => 1-908-512-2222, Name => Peter O'Brien, Address => High Street CC-47209");
+                    testing(PhoneDir.Phone(dr, "1-541-754-3010"), "Phone => 1-541-754-3010, Name => J Steeve, Address => 156 Alphand St.");
+                    testing(PhoneDir.Phone(dr, "1-121-504-8974"), "Phone => 1-121-504-8974, Name => Arthur Clarke, Address => San Antonio TT-45120");
+                    testing(PhoneDir.Phone(dr, "1-498-512-2222"), "Phone => 1-498-512-2222, Name => Bernard Deltheil, Address => Mount Av. Eldorado");
+                    testing(PhoneDir.Phone(dr, "1-098-512-2222"), "Error => Too many people: 1-098-512-2222");
+                    testing(PhoneDir.Phone(dr, "5-555-555-5555"), "Error => Not found: 5-555-555-5555");
 
-        }*/
+                }*/
     }
 }
