@@ -10,7 +10,6 @@ namespace AlgoDataStructures
     {
         public Node() { }
         public Node(int v) { } 
-        // add constructor, 1 variable of type T 
         public Node(T data)
         {
             this.Data = data;  
