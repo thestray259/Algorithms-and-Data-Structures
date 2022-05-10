@@ -75,9 +75,12 @@ namespace AlgoDataStructures
             return Find(value) != null; 
         }
 
-        public void Remove(T value) // do this 
+        public void Remove(T value) // works
         {
-            throw new NotImplementedException(); 
+            BinaryTreeNode<T> node = Find(value);
+            RemoveNode(node);
+
+            count--; 
         }
 
         public void Clear() // works 
@@ -95,14 +98,52 @@ namespace AlgoDataStructures
             return HeightCount; 
         }
 
-        public T[] ToArray() // do this 
+        public T[] ToArray() // needs to be tested 
         {
-            throw new NotImplementedException(); 
+            //BinarySearchTree<T> tree = new BinarySearchTree<T>();
+
+            T[] array = new T[count];
+            int arrayIndex = 0;
+
+            //foreach (T item in this) array[arrayIndex++] = item;
+            return array; 
         }
 
-        public string InOrder() // do this 
+        public string InOrder() // doesn't work
         {
-            throw new NotImplementedException(); 
+            BinaryTreeNode<T> prevNode = null; 
+            BinaryTreeNode<T> currentNode = Root; 
+            BinaryTreeNode<T> nextNode = null;
+            string returnString = "";
+
+            for (int i = 0; i < Count; i++)
+            {
+                if (prevNode == null || prevNode == currentNode.Parent)
+                {
+                    prevNode = currentNode;
+                    nextNode = currentNode.LeftChild; 
+                }
+
+                if (nextNode == null || prevNode == currentNode.LeftChild)
+                {
+                    prevNode = currentNode;
+                    nextNode = currentNode.RightChild; 
+                }
+
+                if (nextNode == null || prevNode == currentNode.RightChild)
+                {
+                    prevNode = currentNode;
+                    nextNode = currentNode.Parent;
+                }
+
+                if (i < Count) returnString += currentNode.Data + ", ";
+                else if (i == Count - 1) returnString += currentNode.Data;
+                else Console.WriteLine("Something went wrong in PreOrder()");
+
+                currentNode = nextNode; 
+            }
+
+            return returnString; 
         }
 
         public string PreOrder() // doesn't work 
@@ -174,7 +215,12 @@ namespace AlgoDataStructures
 
         // helper guys 
 
-        public BinaryTreeNode<T> Find(T node)
+/*        public IEnumerator<T> GetEnumerator() // need InOrder done first 
+        {
+            foreach (T element in InOrder) yield return element; 
+        }*/
+
+        public BinaryTreeNode<T> Find(T node) //works
         {
             BinaryTreeNode<T> currentNode = Root; 
 
@@ -188,6 +234,37 @@ namespace AlgoDataStructures
             }
 
             return null; 
+        } 
+
+        public void RemoveNode(BinaryTreeNode<T> node) // works 
+        {
+            if (node != null)
+            {
+                BinaryTreeNode<T> nextNode = new BinaryTreeNode<T>();
+
+                if ((node.LeftChild == null) && (node.RightChild == null)) nextNode = null; // no children, so no next node
+                else if (node.RightChild == null) nextNode = node.LeftChild;
+                else if (node.LeftChild == null) nextNode = node.RightChild; 
+                else // nextNode is leftmost node on right branch 
+                {
+                    nextNode = node.RightChild;
+                    while (nextNode.LeftChild != null) nextNode = nextNode.LeftChild;
+
+                    node.Data = nextNode.Data; // swap value with nextNode, then delete nextNode
+                    RemoveNode(nextNode); 
+                }
+
+                if (node.Parent != null) // deleted node's parent now points to nextNode
+                {
+                    if (node.Parent.RightChild == node) node.Parent.RightChild = nextNode; 
+                    if (node.Parent.LeftChild == node) node.Parent.LeftChild = nextNode; 
+                }
+
+                // nextNode's new parent is the deleted node's parent 
+                if (nextNode != null) nextNode.Parent = node.Parent;
+                // nextNode becomes new root 
+                if (node == Root) Root = nextNode;
+            }
         }
     }
 }

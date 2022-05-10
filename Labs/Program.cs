@@ -11,10 +11,15 @@ namespace Labs
             tree.Add(0);
             tree.Add(2);
             tree.Add(1);
-            //tree.Add(5);
-            //tree.Add(3);
+            tree.Add(5);
+            tree.Add(3);
 
+            tree.Remove(2); 
             Console.WriteLine(tree.Count);
+            
+            tree.Remove(1); 
+            Console.WriteLine(tree.Count);
+
         }
     }
 }

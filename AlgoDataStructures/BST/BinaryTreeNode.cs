@@ -32,7 +32,7 @@ namespace AlgoDataStructures
             }
         }
 
-        public void Add(T value)
+/*        public void Add(T value) //broken 
         {
             BinaryTreeNode<T> destinationNode = bst.Root;
             int result = comparer.Compare(value, destinationNode.Data);
@@ -40,7 +40,7 @@ namespace AlgoDataStructures
             if (result < 0) LeftChild = new BinaryTreeNode<T>(value);
             else if (result > 0) RightChild = new BinaryTreeNode<T>(value); 
             else LeftChild = new BinaryTreeNode<T>(value);
-        }
+        }*/
 
         // public void Add(T value) {}
         // value.CompareTo(Data) < 0 
