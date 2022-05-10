@@ -15,16 +15,8 @@ namespace AlgoDataStructures
             this.Data = data;
         }
 
-        public BinaryTreeNode(T data, BinaryTreeNode<T> next)
-        {
-            this.Data = data;
-            this.Next = next;
-        }
-
         public T Data { get; set; }
 
-        public BinaryTreeNode<T> Next { get; set; }
-        //public BinaryTreeNode<T> Prev { get; set; }
         public BinaryTreeNode<T> Parent { get; set; }
         public BinaryTreeNode<T> LeftChild { get; set; }
         public BinaryTreeNode<T> RightChild { get; set; }

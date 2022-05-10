@@ -26,7 +26,7 @@ namespace AlgoDataStructures
             }
         }
 
-        public void Add(T value) // do this 
+        public void Add(T value) // works?
         {
             BinaryTreeNode<T> currentNode = new BinaryTreeNode<T>(value);
 
@@ -63,9 +63,9 @@ namespace AlgoDataStructures
             count++; 
         }
 
-        public bool Contains(T value) // do this 
+        public bool Contains(T value) // should work, test keeps failing though 
         {
-            return false; 
+            return Find(value) != null; 
         }
 
         public void Remove(T value) // do this 
@@ -73,9 +73,10 @@ namespace AlgoDataStructures
 
         }
 
-        public void Clear() // do this 
+        public void Clear() // works 
         {
-
+            Root = null;
+            count = 0; 
         }
 
         public int Height() // do this 
@@ -93,14 +94,91 @@ namespace AlgoDataStructures
             throw new NotImplementedException(); 
         }
 
-        public string PreOrder() // do this 
+        public string PreOrder() // doesn't work 
         {
-            throw new NotImplementedException(); 
+            BinaryTreeNode<T> prevNode = null; 
+            BinaryTreeNode<T> currentNode = Root; 
+            BinaryTreeNode<T> nextNode = null;
+
+            string returnString = ""; 
+
+            for (int i = 0; i < Count; i++)
+            {
+                if (prevNode == null || prevNode == currentNode.Parent)
+                {
+                    prevNode = currentNode;
+                    nextNode = currentNode.LeftChild;
+                }
+
+                if (nextNode == null || prevNode == currentNode.LeftChild)
+                {
+                    prevNode = currentNode;
+                    nextNode = currentNode.RightChild;
+                }
+
+                if (nextNode == null || prevNode == currentNode.RightChild)
+                {
+                    prevNode = currentNode;
+                    nextNode = currentNode.Parent;
+                }
+
+                if (i < Count) returnString += currentNode.Data + ", ";
+                else if (i == Count) returnString += currentNode.Data;
+                else Console.WriteLine("Something went wrong in PreOrder");
+
+                currentNode = nextNode;
+            }
+
+/*            while (currentNode != null)
+            {
+                if (prevNode == null || prevNode == currentNode.Parent)
+                {
+                    prevNode = currentNode;
+                    nextNode = currentNode.LeftChild; 
+                }
+
+                if (nextNode == null || prevNode == currentNode.LeftChild)
+                {
+                    prevNode = currentNode;
+                    nextNode = currentNode.RightChild; 
+                }
+
+                if (nextNode == null || prevNode == currentNode.RightChild)
+                {
+                    prevNode = currentNode;
+                    nextNode = currentNode.Parent; 
+                }
+
+                returnString += currentNode.Data + " "; 
+                currentNode = nextNode; 
+            }*/
+
+            return returnString; 
         }
 
         public string PostOrder() // do this 
         {
             throw new NotImplementedException(); 
+        }
+
+        // helper guys 
+
+        public BinaryTreeNode<T> Find(T node)
+        {
+            BinaryTreeNode<T> currentNode = Root; 
+
+            while (currentNode != null)
+            {
+                int result = comparer.Compare(node, currentNode.Data);
+
+                if (result == 0) return currentNode;
+                else if (result < 0) currentNode = currentNode.LeftChild;
+                else currentNode = currentNode.RightChild; 
+
+
+            }
+
+            return null; 
         }
     }
 }
