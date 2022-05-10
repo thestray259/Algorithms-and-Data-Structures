@@ -9,12 +9,12 @@ namespace Labs
         {
             BinarySearchTree<int> tree = new BinarySearchTree<int>();
             tree.Add(0);
-            //tree.Add(2);
+            tree.Add(2);
             tree.Add(1);
             //tree.Add(5);
             //tree.Add(3);
 
-            Console.WriteLine(tree.Contains(1));
+            Console.WriteLine(tree.Count);
         }
     }
 }

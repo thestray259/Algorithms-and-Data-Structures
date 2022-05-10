@@ -9,13 +9,14 @@ namespace AlgoDataStructures
     public class BinarySearchTree<T> where T :IComparable
     {
         public int count;
-        Node<T> parentNode = null;
-        Node<T> leftNode = null;
-        Node<T> rightNode = null;
+        public int height; 
         IComparer<T> comparer = Comparer<T>.Default;
+
+        public BinarySearchTree() { }
 
         public BinaryTreeNode<T> Root { get; set; }
         public int Count { get { return count; } }
+        public int HeightCount { get { return height; } }
         public IComparer<T> Comparer
         {
             get { return comparer; }
@@ -26,8 +27,14 @@ namespace AlgoDataStructures
             }
         }
 
-        public void Add(T value) // works?
+        public void Add(T value) // works 
         {
+            // what Beardall wants me to do 
+/*            if (Root == null) Root = new BinaryTreeNode<T>(value);
+            else Root.Add(value);
+            count++; */
+
+            // what I'm actually doing 
             BinaryTreeNode<T> currentNode = new BinaryTreeNode<T>(value);
 
             if (Root != null)
@@ -42,17 +49,17 @@ namespace AlgoDataStructures
                         else
                         {
                             destinationNode.LeftChild = currentNode;
-                            currentNode.Parent = currentNode;
+                            currentNode.Parent = destinationNode;
                             break; 
                         }
                     }
                     else
                     {
-                        if (currentNode.RightChild != null) currentNode = currentNode.RightChild; 
+                        if (destinationNode.RightChild != null) destinationNode = destinationNode.RightChild; 
                         else
                         {
-                            currentNode.RightChild = currentNode;
-                            currentNode.Parent = currentNode;
+                            destinationNode.RightChild = currentNode;
+                            currentNode.Parent = destinationNode;
                             break; 
                         }
                     }
@@ -63,14 +70,14 @@ namespace AlgoDataStructures
             count++; 
         }
 
-        public bool Contains(T value) // should work, test keeps failing though 
+        public bool Contains(T value) // works 
         {
             return Find(value) != null; 
         }
 
         public void Remove(T value) // do this 
         {
-
+            throw new NotImplementedException(); 
         }
 
         public void Clear() // works 
@@ -81,7 +88,11 @@ namespace AlgoDataStructures
 
         public int Height() // do this 
         {
-            return 0; 
+            // root height = 1 
+            // traverse down each left and right node to find max height 
+            // return max height 
+
+            return HeightCount; 
         }
 
         public T[] ToArray() // do this 
@@ -124,7 +135,7 @@ namespace AlgoDataStructures
 
                 if (i < Count) returnString += currentNode.Data + ", ";
                 else if (i == Count) returnString += currentNode.Data;
-                else Console.WriteLine("Something went wrong in PreOrder");
+                else Console.WriteLine("Something went wrong in PreOrder()");
 
                 currentNode = nextNode;
             }
@@ -174,8 +185,6 @@ namespace AlgoDataStructures
                 if (result == 0) return currentNode;
                 else if (result < 0) currentNode = currentNode.LeftChild;
                 else currentNode = currentNode.RightChild; 
-
-
             }
 
             return null; 
