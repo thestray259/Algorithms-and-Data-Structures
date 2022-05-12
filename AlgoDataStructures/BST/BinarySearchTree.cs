@@ -109,50 +109,46 @@ namespace AlgoDataStructures
             return array; 
         }
 
-        public string InOrder() // doesn't work
+        public string InOrder() // works
         {
-            BinaryTreeNode<T> prevNode = null; 
-            BinaryTreeNode<T> currentNode = Root; 
-            BinaryTreeNode<T> nextNode = null;
-            string returnString = "";
-            string helperString = "";
+            string s = "";
 
-            for (int i = 0; i < Count; i++)
-            {
-                while (currentNode != null)
-                {
-                    helperString += InOrderHelper(currentNode);
-
-                    if (i < Count - 1) returnString += helperString + ", ";
-                    else if (i == Count - 1) returnString += helperString;
-                    else Console.WriteLine("Something went wrong in InOrder()");
-
-                    helperString = ""; 
-                    //currentNode = nextNode;
-                }
-            }
-
-            return returnString; 
-        }
-
-        public string PreOrder() // doesn't work 
-        {
-            BinaryTreeNode<T> currentNode = Root; 
-
-            string returnString = "";
-
-            if (currentNode == null) return ""; 
+            if (Root == null) return "";
             else
             {
-                returnString += PreOrderHelper(currentNode);
+                s += InOrderHelper(Root);
             }
 
+            string returnString = s.Remove(s.Length - 2);
+            return returnString;  
+        }
+
+        public string PreOrder() // works
+        {
+            string s = "";
+
+            if (Root == null) return ""; 
+            else
+            {
+                s += PreOrderHelper(Root); 
+            }
+
+            string returnString = s.Remove(s.Length - 2); 
             return returnString; 
         }
 
-        public string PostOrder() // do this 
+        public string PostOrder() // works
         {
-            throw new NotImplementedException(); 
+            string s = "";
+
+            if (Root == null) return "";
+            else
+            {
+                s += PostOrderHelper(Root);
+            }
+
+            string returnString = s.Remove(s.Length - 2);
+            return returnString;
         }
 
         // helper guys 
@@ -209,44 +205,59 @@ namespace AlgoDataStructures
             }
         } 
 
-        public string InOrderHelper(BinaryTreeNode<T> node)
+        public string InOrderHelper(BinaryTreeNode<T> node) // works 
         {
-            string returnString = ""; 
-            if (node != null)
-            {
-                InOrderHelper(node.LeftChild);
-                returnString += node.Data; 
-                InOrderHelper(node.RightChild); 
-            }
+            string returnString = "";
+
+            if (node == null) return "";
+            if (node.LeftChild == null && node.RightChild == null) return returnString += node.Data + ", ";
+
+            // left
+            if (node.LeftChild != null) returnString += InOrderHelper(node.LeftChild);
+
+            // root
+            returnString += node.Data + ", ";
+
+            // right
+            if (node.RightChild != null) returnString += InOrderHelper(node.RightChild);
+
             return returnString; 
         }
 
-        public string PreOrderHelper(BinaryTreeNode<T> node)
+        public string PreOrderHelper(BinaryTreeNode<T> node) // works enough
         {
             string returnString = "";
 
             if (node == null) return "";
             returnString += node.Data + ", ";
 
-            if (node.LeftChild == null && node.RightChild == null) return returnString += node.Data;
+            if (node.LeftChild == null && node.RightChild == null) return returnString;
 
-            if (node.LeftChild != null) // left subtree 
-            {
-                //returnString += "("; 
-                if (node.LeftChild.LeftChild == null && node.LeftChild.RightChild == null) returnString += PreOrderHelper(node.LeftChild);
-                else returnString += PreOrderHelper(node.LeftChild) + ", ";
-                //returnString += ")"; 
-            }
+            // left subtree 
+            if (node.LeftChild != null) returnString += PreOrderHelper(node.LeftChild);
 
-            if (node.RightChild != null) // right subtree
-            {
-                //returnString += "(";
-                if (node.RightChild.LeftChild == null && node.RightChild.RightChild == null) returnString += PreOrderHelper(node.RightChild);
-                else returnString += PreOrderHelper(node.RightChild) + ", ";
-                //returnString += ")";
-            }
+            // right subtree
+            if (node.RightChild != null) returnString += PreOrderHelper(node.RightChild);
 
             return returnString; 
+        }
+
+        public string PostOrderHelper(BinaryTreeNode<T> node) // works
+        {
+            string returnString = "";
+
+            if (node == null) return "";
+
+            if (node.LeftChild == null && node.RightChild == null) return returnString += node.Data + ", ";
+
+            // left subtree 
+            if (node.LeftChild != null) returnString += PostOrderHelper(node.LeftChild);
+
+            // right subtree
+            if (node.RightChild != null) returnString += PostOrderHelper(node.RightChild);
+
+            returnString += node.Data + ", ";
+            return returnString;
         }
     }
 }

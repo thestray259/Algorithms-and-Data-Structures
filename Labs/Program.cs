@@ -14,9 +14,10 @@ namespace Labs
             tree.Add(5);
             tree.Add(3);
 
-            Console.WriteLine("Expected: 4, 2, 1, 3, 5");
-            Console.WriteLine("Actual: " + tree.PreOrderHelper(tree.Root));
+            int[] arr = { 4, 2, 1, 5, 3 };
 
+            Console.WriteLine("Expected: " + arr.ToString());
+            Console.WriteLine("Actual: " + tree.ToArray());
         }
     }
 }
