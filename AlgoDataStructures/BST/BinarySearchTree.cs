@@ -9,7 +9,7 @@ namespace AlgoDataStructures
     public class BinarySearchTree<T> where T :IComparable
     {
         public int count;
-        public int height; 
+        public int height = 0; 
         IComparer<T> comparer = Comparer<T>.Default;
 
         public BinarySearchTree() { }
@@ -95,7 +95,7 @@ namespace AlgoDataStructures
             // traverse down each left and right node to find max height 
             // return max height 
 
-            return HeightCount; 
+            return HeightHelper(Root); 
         }
 
         public T[] ToArray() // needs to be tested/getEnum needs to be done first 
@@ -155,7 +155,7 @@ namespace AlgoDataStructures
 
 /*        public IEnumerator<T> GetEnumerator() // need InOrder done first 
         {
-            foreach (T element in InOrder) yield return element; 
+            foreach (T element in InOrder()) yield return element;
         }*/
 
         public BinaryTreeNode<T> Find(T node) //works
@@ -258,6 +258,19 @@ namespace AlgoDataStructures
 
             returnString += node.Data + ", ";
             return returnString;
+        }
+
+        public int HeightHelper(BinaryTreeNode<T> node)
+        {
+            if (node == null)
+                return 0;
+            else
+            {
+                int leftHeight = HeightHelper(node.LeftChild); 
+                int rightHeight = HeightHelper(node.RightChild);
+
+                return Math.Max(leftHeight, rightHeight) + 1; 
+            }
         }
     }
 }
