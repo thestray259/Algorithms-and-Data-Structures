@@ -75,7 +75,7 @@ namespace AlgoDataStructures
             return Find(value) != null; 
         }
 
-        public void Remove(T value) // works
+        public void Remove(T value) // works 
         {
             BinaryTreeNode<T> node = Find(value);
             RemoveNode(node);
@@ -98,7 +98,7 @@ namespace AlgoDataStructures
             return HeightCount; 
         }
 
-        public T[] ToArray() // needs to be tested 
+        public T[] ToArray() // needs to be tested/getEnum needs to be done first 
         {
             //BinarySearchTree<T> tree = new BinarySearchTree<T>();
 
@@ -115,32 +115,21 @@ namespace AlgoDataStructures
             BinaryTreeNode<T> currentNode = Root; 
             BinaryTreeNode<T> nextNode = null;
             string returnString = "";
+            string helperString = "";
 
             for (int i = 0; i < Count; i++)
             {
-                if (prevNode == null || prevNode == currentNode.Parent)
+                while (currentNode != null)
                 {
-                    prevNode = currentNode;
-                    nextNode = currentNode.LeftChild; 
+                    helperString += InOrderHelper(currentNode);
+
+                    if (i < Count - 1) returnString += helperString + ", ";
+                    else if (i == Count - 1) returnString += helperString;
+                    else Console.WriteLine("Something went wrong in InOrder()");
+
+                    helperString = ""; 
+                    //currentNode = nextNode;
                 }
-
-                if (nextNode == null || prevNode == currentNode.LeftChild)
-                {
-                    prevNode = currentNode;
-                    nextNode = currentNode.RightChild; 
-                }
-
-                if (nextNode == null || prevNode == currentNode.RightChild)
-                {
-                    prevNode = currentNode;
-                    nextNode = currentNode.Parent;
-                }
-
-                if (i < Count) returnString += currentNode.Data + ", ";
-                else if (i == Count - 1) returnString += currentNode.Data;
-                else Console.WriteLine("Something went wrong in PreOrder()");
-
-                currentNode = nextNode; 
             }
 
             return returnString; 
@@ -148,62 +137,15 @@ namespace AlgoDataStructures
 
         public string PreOrder() // doesn't work 
         {
-            BinaryTreeNode<T> prevNode = null; 
             BinaryTreeNode<T> currentNode = Root; 
-            BinaryTreeNode<T> nextNode = null;
 
-            string returnString = ""; 
+            string returnString = "";
 
-            for (int i = 0; i < Count; i++)
+            if (currentNode == null) return ""; 
+            else
             {
-                if (prevNode == null || prevNode == currentNode.Parent)
-                {
-                    prevNode = currentNode;
-                    nextNode = currentNode.LeftChild;
-                }
-
-                if (nextNode == null || prevNode == currentNode.LeftChild)
-                {
-                    prevNode = currentNode;
-                    nextNode = currentNode.RightChild;
-                }
-
-                if (nextNode == null || prevNode == currentNode.RightChild)
-                {
-                    prevNode = currentNode;
-                    nextNode = currentNode.Parent;
-                }
-
-                if (i < Count) returnString += currentNode.Data + ", ";
-                else if (i == Count) returnString += currentNode.Data;
-                else Console.WriteLine("Something went wrong in PreOrder()");
-
-                currentNode = nextNode;
+                returnString += PreOrderHelper(currentNode);
             }
-
-/*            while (currentNode != null)
-            {
-                if (prevNode == null || prevNode == currentNode.Parent)
-                {
-                    prevNode = currentNode;
-                    nextNode = currentNode.LeftChild; 
-                }
-
-                if (nextNode == null || prevNode == currentNode.LeftChild)
-                {
-                    prevNode = currentNode;
-                    nextNode = currentNode.RightChild; 
-                }
-
-                if (nextNode == null || prevNode == currentNode.RightChild)
-                {
-                    prevNode = currentNode;
-                    nextNode = currentNode.Parent; 
-                }
-
-                returnString += currentNode.Data + " "; 
-                currentNode = nextNode; 
-            }*/
 
             return returnString; 
         }
@@ -265,6 +207,46 @@ namespace AlgoDataStructures
                 // nextNode becomes new root 
                 if (node == Root) Root = nextNode;
             }
+        } 
+
+        public string InOrderHelper(BinaryTreeNode<T> node)
+        {
+            string returnString = ""; 
+            if (node != null)
+            {
+                InOrderHelper(node.LeftChild);
+                returnString += node.Data; 
+                InOrderHelper(node.RightChild); 
+            }
+            return returnString; 
+        }
+
+        public string PreOrderHelper(BinaryTreeNode<T> node)
+        {
+            string returnString = "";
+
+            if (node == null) return "";
+            returnString += node.Data + ", ";
+
+            if (node.LeftChild == null && node.RightChild == null) return returnString += node.Data;
+
+            if (node.LeftChild != null) // left subtree 
+            {
+                //returnString += "("; 
+                if (node.LeftChild.LeftChild == null && node.LeftChild.RightChild == null) returnString += PreOrderHelper(node.LeftChild);
+                else returnString += PreOrderHelper(node.LeftChild) + ", ";
+                //returnString += ")"; 
+            }
+
+            if (node.RightChild != null) // right subtree
+            {
+                //returnString += "(";
+                if (node.RightChild.LeftChild == null && node.RightChild.RightChild == null) returnString += PreOrderHelper(node.RightChild);
+                else returnString += PreOrderHelper(node.RightChild) + ", ";
+                //returnString += ")";
+            }
+
+            return returnString; 
         }
     }
 }

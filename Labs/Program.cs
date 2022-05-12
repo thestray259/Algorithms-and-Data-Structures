@@ -8,17 +8,14 @@ namespace Labs
         static void Main(string[] args)
         {
             BinarySearchTree<int> tree = new BinarySearchTree<int>();
-            tree.Add(0);
+            tree.Add(4);
             tree.Add(2);
             tree.Add(1);
             tree.Add(5);
             tree.Add(3);
 
-            tree.Remove(2); 
-            Console.WriteLine(tree.Count);
-            
-            tree.Remove(1); 
-            Console.WriteLine(tree.Count);
+            Console.WriteLine("Expected: 4, 2, 1, 3, 5");
+            Console.WriteLine("Actual: " + tree.PreOrderHelper(tree.Root));
 
         }
     }
