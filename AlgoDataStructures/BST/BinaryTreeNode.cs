@@ -52,16 +52,5 @@ namespace AlgoDataStructures
         // value.CompareTo(Data) == 0
             // can allow duplicates (set as left or right, doesn't matter which)
             // could not allow duplicates, and instead increment a duplicate count (makes other methods get kinda funcky) 
-
-        public int Height()
-        {
-            // ask left for height, if null then 0 
-            // ask right for height 
-            // compare heights, take greater one 
-            // return greater height + 1
-
-            return 0; 
-        }
-
     }
 }

@@ -75,7 +75,7 @@ namespace AlgoDataStructures
             return Find(value) != null; 
         }
 
-        public void Remove(T value) // works 
+        public void Remove(T value) // needs extra work 
         {
             BinaryTreeNode<T> node = Find(value);
             RemoveNode(node);
@@ -98,14 +98,13 @@ namespace AlgoDataStructures
             return HeightHelper(Root); 
         }
 
-        public T[] ToArray() // needs to be tested/getEnum needs to be done first 
+        public T[] ToArray() // works 
         {
-            //BinarySearchTree<T> tree = new BinarySearchTree<T>();
-
             T[] array = new T[count];
             int arrayIndex = 0;
 
-            //foreach (T item in this) array[arrayIndex++] = item;
+            foreach (T item in this) array[arrayIndex++] = item;            
+
             return array; 
         }
 
@@ -153,10 +152,10 @@ namespace AlgoDataStructures
 
         // helper guys 
 
-/*        public IEnumerator<T> GetEnumerator() // need InOrder done first 
+        public IEnumerator<T> GetEnumerator() // works
         {
-            foreach (T element in InOrder()) yield return element;
-        }*/
+            foreach (T element in InOrderEnumHelper) yield return element;
+        }
 
         public BinaryTreeNode<T> Find(T node) //works
         {
@@ -270,6 +269,49 @@ namespace AlgoDataStructures
                 int rightHeight = HeightHelper(node.RightChild);
 
                 return Math.Max(leftHeight, rightHeight) + 1; 
+            }
+        }
+
+        public void ArrayHelper(T[] array, int arrayIndex)
+        {
+            if (array == null) throw new ArgumentNullException("array");
+            if ((arrayIndex < 0) || (arrayIndex >= array.Length)) throw new ArgumentOutOfRangeException("arrayIndex");
+            if (Count < array.Length - arrayIndex) throw new ArgumentException("Array is too small", "array");
+
+            foreach (T item in this) array[arrayIndex++] = item;
+        }
+
+        public IEnumerable<T> InOrderEnumHelper
+        {
+            get
+            {
+                BinaryTreeNode<T> prev = null;
+                BinaryTreeNode<T> current = Root;
+                BinaryTreeNode<T> next = null;
+
+                while (current != null)
+                {
+                    if ((prev == null) || (prev == current.Parent))
+                    {
+                        prev = current;
+                        next = current.LeftChild;
+                    }
+
+                    if ((next == null) || (prev == current.LeftChild))
+                    {
+                        yield return current.Data;
+                        prev = current;
+                        next = current.RightChild;
+                    }
+
+                    if ((next == null) || (prev == current.RightChild))
+                    {
+                        prev = current;
+                        next = current.Parent;
+                    }
+
+                    current = next;
+                }
             }
         }
     }
