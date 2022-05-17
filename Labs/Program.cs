@@ -29,7 +29,7 @@ namespace Labs
             //Console.WriteLine("Expected: 24, 10, 1337, 8, 12, 100, 1400, 7, 9, 11, 13, 90, 110, 1350, 1500");
 
             Console.WriteLine("Actual: " + avl.BreadthFirst());
-            Console.WriteLine(avl.BreadthFirst() + "Actual: ");
+            //Console.WriteLine(avl.BreadthFirst() + "Actual: ");
 
             //tree.Add(24);
             //tree.Add(10);

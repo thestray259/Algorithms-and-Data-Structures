@@ -217,7 +217,8 @@ namespace AlgoDataStructures
             while (queue.Count != 0)
             {
                 Node tempNode = queue.Dequeue();
-                Console.Write(tempNode.Data + ", ");
+                str += tempNode.Data + ", "; 
+                //Console.Write(tempNode.Data + ", ");
 
                 /*Enqueue left child */
                 if (tempNode.LeftChild != null)
