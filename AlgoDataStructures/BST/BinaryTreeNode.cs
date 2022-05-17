@@ -8,6 +8,8 @@ namespace AlgoDataStructures
 {
     public class BinaryTreeNode<T> where T :IComparable
     {
+        int height; 
+
         public BinaryTreeNode() { }
         public BinaryTreeNode(T data)
         {
@@ -21,6 +23,7 @@ namespace AlgoDataStructures
         public BinaryTreeNode<T> Parent { get; set; }
         public BinaryTreeNode<T> LeftChild { get; set; }
         public BinaryTreeNode<T> RightChild { get; set; }
+
         public IComparer<T> Comparer
         {
             get { return comparer; }
