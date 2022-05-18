@@ -24,33 +24,104 @@ namespace AlgoDataStructures
 
         public AVLTree(CompareDelegate compare) : this() { this.compare = compare; }
 
-        public void Add(T value)
+        public void Add(T value) // works
         {
             count++;
             Root = (Root == null) ? new Node(value, null) : Root.Insert(value, compare);
             node.Rebalance();
         }
 
-        public void Remove(T value)
+        public void Remove(T value) // do this
         {
             throw new NotImplementedException();
 
             //node.Rebalance(); 
         }
 
-        public T[] ToArray()
+        public T[] ToArray() // works
         {
-            T[] array = new T[count];
-            int arrayIndex = 0;
-
-            foreach (T item in this) array[arrayIndex++] = item;
-
-            return array;
+            if (Root == null) return new T[0]; 
+            else return BreadthFirstArrayHelper(Root);
         }
 
         public Node Find(T value)
         {
             return Root.Find(value, compare);
+        }
+
+        public Node SingleLeftRotation(Node node)
+        {
+            Node rightChild = node.RightChild;
+
+            //Make the right subtree's left child to be the current node's right subtree
+            if (node.RightChild.LeftChild != null)
+                node.RightChild.LeftChild.Parent = node;
+            node.RightChild = node.RightChild.LeftChild;
+
+            //Replace node's place on the tree with its right child
+            if (node.Parent != null)
+            {
+                if (node.Parent.LeftChild == node)
+                {
+                    node.Parent.LeftChild = rightChild;
+                }
+                else
+                {
+                    node.Parent.RightChild = rightChild;
+                }
+            }
+
+            rightChild.Parent = node.Parent;
+            //Make the node the left child of its former right child
+            rightChild.LeftChild = node;
+            node.Parent = rightChild;
+
+            node.height = Node.ChildHeight(node);
+            rightChild.height = Node.ChildHeight(rightChild);
+
+            return rightChild;
+        }
+
+        public Node SingleRightRotation(Node node)
+        {
+            Node leftChild = node.LeftChild;
+
+            if (node.LeftChild.RightChild != null)
+                node.LeftChild.RightChild.Parent = node;
+            node.LeftChild = node.LeftChild.RightChild;
+
+            if (node.Parent != null)
+            {
+                if (node.Parent.LeftChild == node)
+                    node.Parent.LeftChild = leftChild;
+                else
+                {
+                    node.Parent.RightChild = leftChild;
+                }
+            }
+
+            leftChild.Parent = node.Parent;
+            leftChild.RightChild = node;
+            node.Parent = leftChild;
+
+            node.height = Node.ChildHeight(node);
+            leftChild.height = Node.ChildHeight(leftChild);
+
+            return leftChild;
+        }
+
+        public Node RightLeftRotation(Node node)
+        {
+            Node tempNode = SingleRightRotation(node);
+            Node returnNode = SingleLeftRotation(tempNode);
+            return returnNode; 
+        }
+
+        public Node LeftRightRotation(Node node)
+        {
+            Node tempNode = SingleLeftRotation(node);
+            Node returnNode = SingleRightRotation(tempNode);
+            return returnNode;
         }
 
         public class Node
@@ -186,6 +257,39 @@ namespace AlgoDataStructures
         }
 
         // helpers 
+        public T[] BreadthFirstArrayHelper(Node node)
+        {
+            List<T> list = new List<T>(); 
+
+            Queue<Node> queue = new Queue<Node>();
+            queue.Enqueue(Root);
+
+            if (node == null) return new T[0];
+            if (node.LeftChild == null && node.RightChild == null)
+            {
+                list.Add(node.Data); 
+                T[] arr = list.ToArray();
+                return arr; 
+            }
+            else
+            {
+                while (queue.Count != 0)
+                {
+                    Node tempNode = queue.Dequeue();
+                    list.Add(tempNode.Data);
+
+                    /*Enqueue left child */
+                    if (tempNode.LeftChild != null) queue.Enqueue(tempNode.LeftChild);
+
+                    /*Enqueue right child */
+                    if (tempNode.RightChild != null) queue.Enqueue(tempNode.RightChild);
+                }
+            }
+
+            T[] array = list.ToArray(); 
+            return array; 
+        }
+
         public string BreadthFirst()
         {
             string str = "";
@@ -243,17 +347,17 @@ namespace AlgoDataStructures
             foreach (T element in BreadthFirstEnumHealper) yield return element;
         }
 
-        public IEnumerable<T> BreadthFirstEnumHealper
+        public IEnumerable<T> BreadthFirstEnumHealper // throws null object exception
         {
             get
             {
                 Queue<Node> queue = new Queue<Node>();
                 queue.Enqueue(Root);
+
                 while (queue.Count != 0)
                 {
 
                     Node tempNode = queue.Dequeue();
-                    Console.Write(tempNode.Data + " ");
 
                     /*Enqueue left child */
                     if (tempNode.LeftChild != null)

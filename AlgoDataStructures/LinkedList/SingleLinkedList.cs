@@ -10,10 +10,10 @@ namespace AlgoDataStructures
     public class SingleLinkedList<T> where T : IComparable<T>
     {
         public int count;
-        Node<T> firstNode = null;
-        Node<T> lastNode = null;
+        LinkedListNode<T> firstNode = null;
+        LinkedListNode<T> lastNode = null;
 
-        public Node<T> Head { get; set; }
+        public LinkedListNode<T> Head { get; set; }
         public int Count { get { return count; } } // works
 
         public void Add(T v) // works 
@@ -33,14 +33,14 @@ namespace AlgoDataStructures
             else if (index == (count)) InsertBack(val); 
             else
             {
-                Node<T> currentNode = firstNode;
+                LinkedListNode<T> currentNode = firstNode;
 
                 for (int i = 0; i < index - 1; i++)
                 {
                     currentNode = currentNode.Next;
                 }
 
-                Node<T> newNode = new Node<T>(val, currentNode.Next);
+                LinkedListNode<T> newNode = new LinkedListNode<T>(val, currentNode.Next);
                 currentNode.Next = newNode;
                 count++; 
             }
@@ -48,7 +48,7 @@ namespace AlgoDataStructures
 
         public T Get(int index)
         {
-            Node<T> current = Head;
+            LinkedListNode<T> current = Head;
             int nodeIndex = 0;
             T doesNotExist = default;
 
@@ -82,7 +82,7 @@ namespace AlgoDataStructures
             if (firstNode == null) Console.WriteLine("List cannot be empty. ");
 
             object removedItem = default;
-            Node<T> currentnode = Head;
+            LinkedListNode<T> currentnode = Head;
             if (index == 0) // remove from front 
             {
                 removedItem = RemoveFront();
@@ -102,8 +102,8 @@ namespace AlgoDataStructures
                 removedItem = currentnode.Next;
                 currentnode.Next = currentnode.Next.Next;
 
-                Node<T> node = new Node<T>();
-                node = (Node<T>)removedItem; 
+                LinkedListNode<T> node = new LinkedListNode<T>();
+                node = (LinkedListNode<T>)removedItem; 
 
                 count--;
                 return node.Data;
@@ -120,7 +120,7 @@ namespace AlgoDataStructures
         public override string ToString()
         {
             if (Count == 0) return "";
-            Node<T> current = Head; 
+            LinkedListNode<T> current = Head; 
 
             string returnString = "";
 
@@ -144,7 +144,7 @@ namespace AlgoDataStructures
         public int Search(T val)
         {
             SingleLinkedList<T> list = new SingleLinkedList<T>(); 
-            Node<T> currentNode = Head;
+            LinkedListNode<T> currentNode = Head;
 
             int found = 0;
             int index = 0; 
@@ -167,11 +167,11 @@ namespace AlgoDataStructures
 
         public void InsertFront(T value) // works now 
         {
-            if (firstNode == null) firstNode = lastNode = new Node<T>(value);
+            if (firstNode == null) firstNode = lastNode = new LinkedListNode<T>(value);
             else
             {
                 //firstNode = new Node<T>(value, firstNode);
-                Node<T> newNode = new Node<T>();
+                LinkedListNode<T> newNode = new LinkedListNode<T>();
                 newNode.Data = value;
                 newNode.Next = Head;
                 Head = newNode; 
@@ -181,12 +181,12 @@ namespace AlgoDataStructures
 
         public void InsertBack(T value) // works now 
         {
-            if (firstNode == null) firstNode = lastNode = new Node<T>(value);
-            else if (lastNode == null) lastNode = lastNode.Next = new Node<T>(value);
+            if (firstNode == null) firstNode = lastNode = new LinkedListNode<T>(value);
+            else if (lastNode == null) lastNode = lastNode.Next = new LinkedListNode<T>(value);
             else
             {
-                Node<T> newNode = new Node<T>(value); 
-                Node<T> currentNode = Head;
+                LinkedListNode<T> newNode = new LinkedListNode<T>(value); 
+                LinkedListNode<T> currentNode = Head;
 
                 newNode.Next = null; 
 
@@ -203,7 +203,7 @@ namespace AlgoDataStructures
 
         public T RemoveFront() // works now 
         {
-            Node<T> node = this.Head;
+            LinkedListNode<T> node = this.Head;
 
             if (firstNode == lastNode) firstNode = lastNode = null;
             else
@@ -217,7 +217,7 @@ namespace AlgoDataStructures
 
             if (firstNode == null)
             {
-                Node<T> node1 = new Node<T>(0);
+                LinkedListNode<T> node1 = new LinkedListNode<T>(0);
                 return node1.Data; 
             }
             else return firstNode.Data;
@@ -225,7 +225,7 @@ namespace AlgoDataStructures
 
         public T RemoveBack()
         {
-            Node<T> currentNode = this.Head; 
+            LinkedListNode<T> currentNode = this.Head; 
             if (firstNode == lastNode) firstNode = lastNode = null; 
             else
             {
@@ -235,7 +235,7 @@ namespace AlgoDataStructures
                     currentNode = currentNode.Next; 
                 }
 
-                Node<T> node = currentNode.Next;
+                LinkedListNode<T> node = currentNode.Next;
                 currentNode.Next = null;
                 node = null; 
             }
@@ -246,7 +246,7 @@ namespace AlgoDataStructures
 
         public IEnumerator<T> GetEnumerator()
         {
-            Node<T> currentNode = firstNode; 
+            LinkedListNode<T> currentNode = firstNode; 
 
             while (currentNode != null)
             {

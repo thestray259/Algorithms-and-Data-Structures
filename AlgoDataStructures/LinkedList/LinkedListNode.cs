@@ -6,22 +6,22 @@ using System.Threading.Tasks;
 
 namespace AlgoDataStructures
 {
-    public class Node<T>
+    public class LinkedListNode<T>
     {
-        public Node() { }
-        public Node(int v) { } 
-        public Node(T data)
+        public LinkedListNode() { }
+        public LinkedListNode(int v) { } 
+        public LinkedListNode(T data)
         {
             this.Data = data;  
         }
 
-        public Node(T data, Node<T> next)
+        public LinkedListNode(T data, LinkedListNode<T> next)
         {
             this.Data = data;
             this.Next = next; 
         }
 
-        public Node(T data, Node<T> next, Node<T> prev)
+        public LinkedListNode(T data, LinkedListNode<T> next, LinkedListNode<T> prev)
         {
             this.Data = data;
             this.Next = next;
@@ -30,8 +30,8 @@ namespace AlgoDataStructures
 
         public T Data { get; set; }
 
-        public Node<T> Next { get; set; }
-        public Node<T> Prev { get; set; }
+        public LinkedListNode<T> Next { get; set; }
+        public LinkedListNode<T> Prev { get; set; }
 
         public override string ToString() // do this 
         {
