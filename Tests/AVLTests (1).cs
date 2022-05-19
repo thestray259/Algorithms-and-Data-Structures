@@ -19,6 +19,7 @@ namespace AVLUnitTester
             string actual = ArrayToString(avl.ToArray());
 
             Assert.AreEqual(expected, actual);
+            PrintMyTree(avl);
         }
 
         [TestMethod]
@@ -33,6 +34,7 @@ namespace AVLUnitTester
             string actual = ArrayToString(avl.ToArray());
 
             Assert.AreEqual(expected, actual);
+            PrintMyTree(avl);
         }
 
         [TestMethod]
@@ -47,6 +49,7 @@ namespace AVLUnitTester
             string actual = ArrayToString(avl.ToArray());
 
             Assert.AreEqual(expected, actual);
+            PrintMyTree(avl);
         }
 
         [TestMethod]
@@ -61,6 +64,7 @@ namespace AVLUnitTester
             string actual = ArrayToString(avl.ToArray());
 
             Assert.AreEqual(expected, actual);
+            PrintMyTree(avl);
         }
 
         [TestMethod]
@@ -75,6 +79,7 @@ namespace AVLUnitTester
             string actual = ArrayToString(avl.ToArray());
 
             Assert.AreEqual(expected, actual);
+            PrintMyTree(avl);
         }
 
         [TestMethod]
@@ -89,6 +94,7 @@ namespace AVLUnitTester
             string actual = ArrayToString(avl.ToArray());
 
             Assert.AreEqual(expected, actual);
+            PrintMyTree(avl);
         }
 
         [TestMethod]
@@ -114,7 +120,8 @@ namespace AVLUnitTester
             string expected = "24, 10, 1337, 8, 12, 100, 1400, 7, 9, 11, 13, 90, 110, 1350, 1500";
             string actual = ArrayToString(avl.ToArray());
 
-            Assert.AreEqual(expected, actual);                        
+            Assert.AreEqual(expected, actual);
+            PrintMyTree(avl);
         }
 
         [TestMethod]
@@ -141,6 +148,7 @@ namespace AVLUnitTester
             string actual = ArrayToString(avl.ToArray());
 
             Assert.AreEqual(expected, actual);
+            PrintMyTree(avl);
         }
 
         [TestMethod]
@@ -167,6 +175,7 @@ namespace AVLUnitTester
             string actual = ArrayToString(avl.ToArray());
 
             Assert.AreEqual(expected, actual);
+            PrintMyTree(avl);
         }
 
         [TestMethod]
@@ -193,6 +202,7 @@ namespace AVLUnitTester
             string actual = ArrayToString(avl.ToArray());
 
             Assert.AreEqual(expected, actual);
+            PrintMyTree(avl);
         }
 
         [TestMethod]
@@ -209,6 +219,7 @@ namespace AVLUnitTester
             string actual = ArrayToString(avl.ToArray());
 
             Assert.AreEqual(expected, actual);
+            PrintMyTree(avl);
         }
 
         [TestMethod]
@@ -226,6 +237,7 @@ namespace AVLUnitTester
             string actual = ArrayToString(avl.ToArray());
 
             Assert.AreEqual(expected, actual);
+            PrintMyTree(avl);
         }
 
         [TestMethod]
@@ -247,6 +259,7 @@ namespace AVLUnitTester
             string actual = ArrayToString(avl.ToArray());
 
             Assert.AreEqual(expected, actual);
+            PrintMyTree(avl);
         }
 
         [TestMethod]
@@ -279,6 +292,7 @@ namespace AVLUnitTester
             string actual = ArrayToString(avl.ToArray());
 
             Assert.AreEqual(expected, actual);
+            PrintMyTree(avl);
         }
 
         [TestMethod]
@@ -309,6 +323,7 @@ namespace AVLUnitTester
             string actual = ArrayToString(avl.ToArray());
 
             Assert.AreEqual(expected, actual);
+            PrintMyTree(avl);
         }
 
         [TestMethod]
@@ -340,6 +355,7 @@ namespace AVLUnitTester
             string actual = ArrayToString(avl.ToArray());
 
             Assert.AreEqual(expected, actual);
+            PrintMyTree(avl);
         }
 
        
@@ -367,6 +383,7 @@ namespace AVLUnitTester
             avl.Add(1500);
 
             Assert.AreEqual(expected, avl.Count);
+            PrintMyTree(avl);
         }
 
         [TestMethod]
@@ -394,6 +411,7 @@ namespace AVLUnitTester
             avl.Remove(10);
 
             Assert.AreEqual(expected, avl.Count);
+            PrintMyTree(avl);
         }
 
         [TestMethod]
@@ -425,6 +443,7 @@ namespace AVLUnitTester
             avl.Add(1842);
 
             Assert.AreEqual(expected, avl.Count);
+            PrintMyTree(avl);
         }
 
         [TestMethod]
@@ -452,6 +471,7 @@ namespace AVLUnitTester
             string expected = ArrayToString(expectedArr);
             string actual = ArrayToString(avl.ToArray());
             Assert.AreEqual(expected, actual);
+            PrintMyTree(avl);
         }
 
         private string ArrayToString(int[] a)
@@ -470,6 +490,55 @@ namespace AVLUnitTester
             }
 
             return sb.ToString();
+        }
+
+        
+        protected void PrintMyTree(AVLTree<int> tree)
+        {
+            if(tree.Root == null)
+            {
+                Console.WriteLine("Tree is empty");
+                return;
+            }
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append(tree.Root.Data + " (root)");
+
+            string pointerRight = "└──";
+            string pointerLeft = (tree.Root.RightChild != null) ? "├──" : "└──";
+
+            TraverseNodes(sb, "", pointerLeft, tree.Root.LeftChild, tree.Root.RightChild != null);
+            TraverseNodes(sb, "", pointerRight, tree.Root.RightChild, false);
+
+            Console.WriteLine(sb.ToString());
+        }
+
+        public void TraverseNodes(StringBuilder sb, String padding, String pointer, AVLTree<int>.Node node, bool hasRightSibling)
+        {
+            if (node != null)
+            {
+                sb.Append("\n");
+                sb.Append(padding);
+                sb.Append(pointer);
+                sb.Append(node.Data);
+
+                StringBuilder paddingBuilder = new StringBuilder(padding);
+                if (hasRightSibling)
+                {
+                    paddingBuilder.Append("│  ");
+                }
+                else
+                {
+                    paddingBuilder.Append("   ");
+                }
+
+                String paddingForBoth = paddingBuilder.ToString();
+                String pointerRight = "└──";
+                String pointerLeft = (node.RightChild != null) ? "├──" : "└──";
+
+                TraverseNodes(sb, paddingForBoth, pointerLeft, node.LeftChild, node.RightChild != null);
+                TraverseNodes(sb, paddingForBoth, pointerRight, node.RightChild, false);
+            }
         }
     }
 }

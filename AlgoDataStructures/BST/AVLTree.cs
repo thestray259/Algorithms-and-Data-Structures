@@ -33,14 +33,19 @@ namespace AlgoDataStructures
 
         public void Remove(T value) // do this
         {
-            throw new NotImplementedException();
+            Node node = FindDeleteNode(value, Root);
 
-            //node.Rebalance(); 
+            //if (node == null) 
+
+            DeleteHelper(node);
+            count--;
+
+            node.Rebalance(); 
         }
 
         public T[] ToArray() // works
         {
-            if (Root == null) return new T[0]; 
+            if (Root == null) return new T[0];
             else return BreadthFirstArrayHelper(Root);
         }
 
@@ -51,70 +56,43 @@ namespace AlgoDataStructures
 
         public Node SingleLeftRotation(Node node)
         {
-            Node rightChild = node.RightChild;
+            Node rightNode = node.RightChild;
+            Node T2 = rightNode.LeftChild;
 
-            //Make the right subtree's left child to be the current node's right subtree
-            if (node.RightChild.LeftChild != null)
-                node.RightChild.LeftChild.Parent = node;
-            node.RightChild = node.RightChild.LeftChild;
+            // Perform rotation
+            rightNode.LeftChild = node;
+            node.RightChild = T2;
 
-            //Replace node's place on the tree with its right child
-            if (node.Parent != null)
-            {
-                if (node.Parent.LeftChild == node)
-                {
-                    node.Parent.LeftChild = rightChild;
-                }
-                else
-                {
-                    node.Parent.RightChild = rightChild;
-                }
-            }
+            // Update heights
+            node.height = Math.Max(node.LeftChild.height, node.RightChild.height) + 1;
+            rightNode.height = Math.Max(rightNode.LeftChild.height, rightNode.RightChild.height) + 1;
 
-            rightChild.Parent = node.Parent;
-            //Make the node the left child of its former right child
-            rightChild.LeftChild = node;
-            node.Parent = rightChild;
-
-            node.height = Node.ChildHeight(node);
-            rightChild.height = Node.ChildHeight(rightChild);
-
-            return rightChild;
+            // Return new root
+            return rightNode;
         }
 
         public Node SingleRightRotation(Node node)
         {
-            Node leftChild = node.LeftChild;
+            Node leftNode = node.LeftChild;
+            Node T2 = leftNode.RightChild;
 
-            if (node.LeftChild.RightChild != null)
-                node.LeftChild.RightChild.Parent = node;
-            node.LeftChild = node.LeftChild.RightChild;
+            // Perform rotation
+            leftNode.RightChild = node;
+            node.LeftChild = T2;
 
-            if (node.Parent != null)
-            {
-                if (node.Parent.LeftChild == node)
-                    node.Parent.LeftChild = leftChild;
-                else
-                {
-                    node.Parent.RightChild = leftChild;
-                }
-            }
+            // Update heights
+            node.height = Math.Max(node.LeftChild.height, node.RightChild.height) + 1;
+            leftNode.height = Math.Max(leftNode.LeftChild.height, leftNode.RightChild.height) + 1;
 
-            leftChild.Parent = node.Parent;
-            leftChild.RightChild = node;
-            node.Parent = leftChild;
-
-            node.height = Node.ChildHeight(node);
-            leftChild.height = Node.ChildHeight(leftChild);
-
-            return leftChild;
+            // Return new root
+            return leftNode;
         }
 
         public Node RightLeftRotation(Node node)
         {
             Node tempNode = SingleRightRotation(node);
             Node returnNode = SingleLeftRotation(tempNode);
-            return returnNode; 
+            return returnNode;
         }
 
         public Node LeftRightRotation(Node node)
@@ -259,7 +237,7 @@ namespace AlgoDataStructures
         // helpers 
         public T[] BreadthFirstArrayHelper(Node node)
         {
-            List<T> list = new List<T>(); 
+            List<T> list = new List<T>();
 
             Queue<Node> queue = new Queue<Node>();
             queue.Enqueue(Root);
@@ -267,9 +245,9 @@ namespace AlgoDataStructures
             if (node == null) return new T[0];
             if (node.LeftChild == null && node.RightChild == null)
             {
-                list.Add(node.Data); 
+                list.Add(node.Data);
                 T[] arr = list.ToArray();
-                return arr; 
+                return arr;
             }
             else
             {
@@ -286,19 +264,19 @@ namespace AlgoDataStructures
                 }
             }
 
-            T[] array = list.ToArray(); 
-            return array; 
+            T[] array = list.ToArray();
+            return array;
         }
 
         public string BreadthFirst()
         {
             string str = "";
-            string returnString = ""; 
+            string returnString = "";
 
-            if (Root == null) return ""; 
+            if (Root == null) return "";
             //else
             {
-                str += BreadthFirstHelper(Root); 
+                str += BreadthFirstHelper(Root);
             }
 
             if (str.Length != 0)
@@ -306,22 +284,22 @@ namespace AlgoDataStructures
                 returnString = str.Remove(str.Length - 2);
             }
 
-            return returnString; 
+            return returnString;
         }
 
         public string BreadthFirstHelper(Node node)
         {
-            string str = ""; 
+            string str = "";
             Queue<Node> queue = new Queue<Node>();
             queue.Enqueue(Root);
 
             if (node == null) return "";
-            if (node.LeftChild == null && node.RightChild == null) return str += node.Data + ", "; 
-            
+            if (node.LeftChild == null && node.RightChild == null) return str += node.Data + ", ";
+
             while (queue.Count != 0)
             {
                 Node tempNode = queue.Dequeue();
-                str += tempNode.Data + ", "; 
+                str += tempNode.Data + ", ";
                 //Console.Write(tempNode.Data + ", ");
 
                 /*Enqueue left child */
@@ -337,9 +315,9 @@ namespace AlgoDataStructures
                 }
             }
 
-            foreach (var value in queue) str += value + ", "; 
+            foreach (var value in queue) str += value + ", ";
 
-            return str; 
+            return str;
         }
 
         public IEnumerator<T> GetEnumerator() // works
@@ -372,8 +350,123 @@ namespace AlgoDataStructures
                     }
                 }
 
-                return default; 
+                return default;
             }
+        }
+
+        public Node Balance(Node node)
+        {
+            int leftHeight = node.LeftChild == null ? 0 : node.LeftChild.height;
+            int rightHeight = node.RightChild == null ? 0 : node.RightChild.height;
+
+            //left subtree is higher
+            if (leftHeight - rightHeight > 2)
+            {
+                return SingleRightRotation(node);
+            }
+            if (rightHeight - leftHeight > 2)
+            {
+                return SingleLeftRotation(node);
+            }
+
+            return node;
+        }
+
+        public Node FindDeleteNode(T value, Node node)
+        {
+            if (value.CompareTo(node.Data) == 0) return node;
+
+            if (node.LeftChild == null && node.RightChild == null) return null;
+
+            Node foundNode;
+
+            if (value.CompareTo(node.Data) < 0)
+            {
+                if (node.LeftChild == null) return null;
+                foundNode = FindDeleteNode(value, node.LeftChild);
+            }
+            else
+            {
+                if (node.RightChild == null) return null;
+                foundNode = FindDeleteNode(value, node.RightChild);
+            }
+
+
+            if (foundNode != null) node.height--;
+
+            return foundNode;
+        }
+
+        public void DeleteHelper(Node node)
+        {
+            //Leaf
+            if (node.LeftChild == null && node.RightChild == null)
+            {
+                if (node.Parent == null)
+                {
+                    Root = null;
+                    return;
+                }
+
+                if (node.Parent.LeftChild == node) node.Parent.LeftChild = null;
+                else node.Parent.RightChild = null;
+
+                Node returnNode = Balance(node.Parent);
+
+                if (returnNode.Parent == null) Root = returnNode;
+
+                return;
+            }
+
+            if (node.LeftChild == null && node.RightChild != null)
+            {
+                node.RightChild.Parent = node.Parent;
+                //Right subtree is already balanced since we didn't remove anything from it
+                if (node.Parent == null)
+                {
+                    Root = node.RightChild;
+                    return;
+                }
+
+                if (node.Parent.LeftChild == node) node.Parent.LeftChild = node.RightChild;
+                else node.Parent.RightChild = node.RightChild;
+
+                Node returnNode = Balance(node.Parent);
+
+                if (returnNode.Parent == null) Root = returnNode;
+                return;
+            }
+
+            if (node.LeftChild != null && node.RightChild == null)
+            {
+                node.LeftChild.Parent = node.Parent;
+
+                if (node.Parent == null)
+                {
+                    Root = node.LeftChild;
+                    return;
+                }
+
+                if (node.Parent.LeftChild == node) node.Parent.LeftChild = node.LeftChild;
+                else node.Parent.RightChild = node.LeftChild;
+
+                Node returnNode = Balance(node.Parent);
+
+                if (returnNode.Parent == null) Root = returnNode;
+                return;
+            }
+        }
+
+        public Node DeleteNode(Node node, T value)
+        {
+            BinarySearchTree<T> tree = new BinarySearchTree<T>(); 
+            tree.Remove(value); 
+
+            node.height = Math.Max(node.LeftChild.height, node.RightChild.height) + 1;
+
+            node.Rebalance(); 
+
+            return node;
         }
     }
 }
