@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Search", "Search\Search.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SortingLibrary", "SortingLibrary\SortingLibrary.csproj", "{03A728D9-B37D-4000-9D7E-508CEFC139A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoDataStructures", "AlgoDataStructures\AlgoDataStructures.csproj", "{350DD7E8-DC54-4146-AFA8-2EC4B512BF2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlgoDataStructures", "AlgoDataStructures\AlgoDataStructures.csproj", "{350DD7E8-DC54-4146-AFA8-2EC4B512BF2F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeSolver", "MazeSolver\MazeSolver.csproj", "{B3972F7E-95FF-4E17-8A3D-F8E16FA1E4FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{350DD7E8-DC54-4146-AFA8-2EC4B512BF2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{350DD7E8-DC54-4146-AFA8-2EC4B512BF2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{350DD7E8-DC54-4146-AFA8-2EC4B512BF2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3972F7E-95FF-4E17-8A3D-F8E16FA1E4FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3972F7E-95FF-4E17-8A3D-F8E16FA1E4FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3972F7E-95FF-4E17-8A3D-F8E16FA1E4FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3972F7E-95FF-4E17-8A3D-F8E16FA1E4FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

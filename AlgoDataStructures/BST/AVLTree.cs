@@ -186,6 +186,7 @@ namespace AlgoDataStructures
                 var node2 = node1.ChildWithMaxHeight();
                 Node nodeA, nodeB, nodeC;
                 Node T1, T2;
+
                 if (node2 == node1.LeftChild && node1 == node.LeftChild)
                 {
                     nodeA = node2; nodeB = node1; nodeC = node;
